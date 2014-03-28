@@ -132,7 +132,7 @@
                 for (var i = 0; i < site.child.length; i++) {
                     for (var j = 0; j < site.child[i].windows.length; j++) {
                         var ref = site.child[i].windows[j];
-                        $("#"+ref.id+ref.type).css('height',ref.height+'px').css('width',ref.width+'px');
+                        $("#"+ref.id+ref.type).css('height',ref.height-2+'px').css('width',ref.width-2+'px');
                     }
                 }
             }
@@ -225,7 +225,6 @@
                                 this.parent.child[i].height += this.height/(this.parent.child.length+includeparent);
                             }
                         }
-
                     }
                     for (var i = 0; i < this.parent.child.length; i++) {
                         if (this.parent.child[i] == this) {
@@ -305,11 +304,6 @@
             });
         </script>
         <style>
-            * {
-                border-width: 1px;
-                border-color: #2d2d2d;
-                border-style: solid;
-            }
             html,
             body {
                 font-family: Droid Sans Mono;
@@ -344,6 +338,9 @@
                 height: 100%;
                 width: 100%;
                 float: left;
+                border-width: 1px;
+                border-color: #2d2d2d;
+                border-style: solid;
             }
         </style>
     </head>
