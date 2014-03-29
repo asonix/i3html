@@ -18,14 +18,15 @@
         <script src="jquery-2.0.3.js"></script>
         <script type="text/javascript">
             function Time() {
+                var h,m,s,Y,M,D;
                 var recurring = setInterval(function(){
                     var current = new Date();
-                    var h = this.addzero(current.getHours());
-                    var m = this.addzero(current.getMinutes());
-                    var s = this.addzero(current.getSeconds());
-                    var Y = this.addzero(current.getFullYear());
-                    var M = this.addzero(current.getMonth());
-                    var D = this.addzero(current.getDay());
+                    h = this.addzero(current.getHours());
+                    m = this.addzero(current.getMinutes());
+                    s = this.addzero(current.getSeconds());
+                    Y = this.addzero(current.getFullYear());
+                    M = this.addzero(current.getMonth()+1);
+                    D = this.addzero(current.getDate());
                     $(".time").html(h+":"+m+":"+s+" "+D+"."+M+"."+Y);
                 },1000);
                 this.addzero = function(arg) {
@@ -73,15 +74,34 @@
                 }
             }
 
-            function NewWindowSize(newwindow) {
-                
+            function SearchParentDirections(currentwindow,expanddir) {
+                this.search = function(x) {
+                    var returned = [x,x.parent];
+                    var type = currentwindow.parent.type;
+                    if ((x.direction == expanddir && type == "window") || type == "workspace") {
+                        return(returned);
+                    }
+                    else {
+                        return(this.search(x.parent));
+                    }
+                }
+                if (currentwindow.child.length != 0) {
+                    return(this.search(currentwindow.child[0]));
+                }
+                else {
+                    return(this.search(currentwindow));
+                }
+            }
+
+            function NewWindowSize(newwindow) { 
                 var q = newwindow.parent.child.length+1;
+
                 if (newwindow.parent.type == "workspace") {
                     q -= 1;
                 }
                 
-                console.log("Number of Windows to be resized: "+q);
-
+                //console.log("Number of Windows to be resized: "+q);
+                
                 var totalx = 0;
                 var totaly = 0;
 
@@ -101,7 +121,7 @@
                     totaly = newwindow.parent.height;
                 }
 
-                if (site.direction == "right") {
+                if (newwindow.parent.next == "right") {
                     newwindow.width = totalx/q;
                     newwindow.height = newwindow.parent.height;
                 }
@@ -111,15 +131,15 @@
                 }
                 
                 for (var i = 0; i < newwindow.parent.child.length; i++) {
-                    if (site.direction == "right" && newwindow.parent.child[i] != newwindow) {
+                    if (newwindow.parent.next == "right" && newwindow.parent.child[i] != newwindow) {
                         newwindow.parent.child[i].width = newwindow.parent.child[i].width-newwindow.width/(q-1);
                     }
-                    else if (newwindow.parent.child[i] != newwindow && site.direction !="right") {
+                    else if (newwindow.parent.child[i] != newwindow && newwindow.parent.next !="right") {
                         newwindow.parent.child[i].height = newwindow.parent.child[i].height-newwindow.height/(q-1);
                     }
                 }
                 if (newwindow.parent.type != "workspace") {
-                    if (site.direction == "right") {
+                    if (newwindow.parent.next == "right") {
                         newwindow.parent.width = newwindow.parent.width-newwindow.width/(q-1);
                     }
                     else {
@@ -127,7 +147,31 @@
                     }
                 }
             }
-
+            function RepositionAll(outer,totalx,totaly) {
+                var ichild;
+                for (var i = 0; i < outer.child.length; i++) {
+                    ichild = outer.child[i];
+                    
+                    if (ichild.next == "right") {
+                        RepositionAll(ichild,totalx+ichild.width,totaly);
+                    }
+                    else if (ichild.next == "down") {
+                        RepositionAll(ichild,totalx,totaly+ichild.height);
+                    }
+                    
+                    if (ichild.direction == "right") {
+                        ichild.ypos = totaly;
+                        ichild.xpos = totalx;
+                        totalx += ichild.width;
+                    }
+                    else {
+                        ichild.xpos = totalx;
+                        ichild.ypos = totaly;
+                        totaly += ichild.height;
+                    }
+                    ichild.html.css("top",ichild.ypos+"px").css("left",ichild.xpos+"px");
+                }
+            }
             function ResizeAll() {
                 for (var i = 0; i < site.child.length; i++) {
                     for (var j = 0; j < site.child[i].windows.length; j++) {
@@ -139,10 +183,10 @@
 
             function AssignParent(newwindow) {
                  
-                if (site.focus.direction != site.direction && (site.focus.direction == "right" || site.focus.direction == "down")) {
+                if (site.focus.next == "right" || site.focus.next == "down") {
                     newwindow.parent = site.focus;
                 }
-                else if (site.focus.direction == site.direction) {
+                else if (site.focus.next == "none") {
                     newwindow.parent = site.focus.parent;
                 }
                 else {
@@ -151,25 +195,7 @@
             }
             
             function Window() {
-                AssignParent(this);
-                this.parent.child.push(this);
-                this.child = [];
-                this.type = "window";
-                this.float = false;
-                this.direction = site.direction;
-                NewWindowSize(this);
-                this.id = site.child[0].windows.length;
-                this.workspace = this.parent.workspace;
-                
                 this.create = function() {
-                    var r1 = Math.floor(Math.random()*16).toString(16);
-                    var r2 = Math.floor(Math.random()*16).toString(16);
-                    var g1 = Math.floor(Math.random()*16).toString(16);
-                    var g2 = Math.floor(Math.random()*16).toString(16);
-                    var b1 = Math.floor(Math.random()*16).toString(16);
-                    var b2 = Math.floor(Math.random()*16).toString(16);
-                    console.log(r1+r2+g1+g2+b1+b2);
-                    
                     if (this.workspace.windows.length == 0) {
                         $(".workspace").append("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
                     }
@@ -177,28 +203,28 @@
                         site.focus.html.after("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
                     }
                     this.html = $("#"+this.id+this.type);
-                    this.html.css("background-color", "#"+r1+r2+b1+b2+g1+g2);
+                    this.html.css("background-color", "#e5e5e5").css("border-color","#d64937");
                 }
                 
-                this.create();
-                
-                for (var i = 0; i < this.workspace.windows.length; i++) {
-                    this.workspace.windows[i].focus = false;
+                this.focus = function() {
+                    site.focus = this;
+                    for (var i = 0; i < site.focusws.windows.length; i++) {
+                        site.focusws.windows[i].unfocus();
+                    }
+                    site.focus = this;
+                    this.html.css("border-color","#d64937");
                 }
-                
-                this.focus = true;
-                site.focus = this;
-                
-                var currentwindow = this;
-                $("#"+this.id+this.type).mouseover(function() {
-                    site.focus = currentwindow;
-                });
-                
+
+                this.unfocus = function() {
+                    this.html.css("border-color","#2d2d2d");
+                }
+
                 this.kill = function() {
                     if (this.child.length != 0) {
                         for (var i = 0; i < this.child.length; i++) {
                             if (i == 0) {
                                 this.child[i].parent = this.parent;
+                                this.parent.child.push(this.child[i]);
                             }
                             else {
                                 this.child[0].child.push(this.child[i]);
@@ -207,6 +233,7 @@
                         }
                     }
                     else {
+
                         var includeparent = -1;
                         if (this.parent.type == "window") {
                             includeparent = 0;
@@ -236,8 +263,48 @@
                             this.workspace.windows.splice(i,1);
                         }
                     }
-                    $("#"+this.id+this.type).remove();
+                    this.html.remove();
+                    if (this.child.length != 0) {
+                        this.child[0].focus();
+                    }
+                    else if (this.child.length == 0) {
+                        if (this.parent.child.length != 0) {
+                            if (this.parent.child.length >= this.id) {
+                                this.parent.child[this.id-1].focus();
+                            }
+                            else {
+                                this.parent.child[this.parent.child.length-1].focus();
+                            }
+                        }
+                        else if (this.parent.type != "workspace") {
+                            this.parent.focus();
+                        }
+                    }
+                    ResizeAll();
+                    RepositionAll(site.focusws,0,$(".bar").height());
                 }
+                
+                AssignParent(this);
+                this.parent.child.push(this);
+                this.child = [];
+                this.type = "window";
+                this.float = false;
+                this.direction = this.parent.next;
+                this.next = "none";
+                NewWindowSize(this);
+                this.id = site.child[0].windows.length;
+                this.workspace = this.parent.workspace;
+                this.xpos = 0;
+                this.ypos = 0;
+                
+                this.create();
+                RepositionAll(site.focusws,0,$(".bar").height());
+                this.focus();
+
+                var currentwindow = this;
+                $("#"+this.id+this.type).mouseover(function() {
+                    currentwindow.focus();
+                }); 
             }
             /*
             function RisingEdge(arg) {
@@ -268,41 +335,27 @@
                 site.child[0].create();
                 $('body').keydown(function(e){
                     if (e.altKey) {
+                        e.preventDefault();
                         if (e.keyCode == "13") {
-                            for (var i = 0; i < site.child.length; i++) {
-                                if (site.child[i].focus) {
-                                    site.child[i].windows.push(new Window());
-                                    ResizeAll();
-                                    break;
-                                }
-                            }
-                        }
-                        else if (e.keyCode == "81") {
-                            var wid = site.focus.id;
-                            var next = 0;
-                            for (var i = 0; i < site.focus.parent.child.length; i++) {
-                                if (site.focus.parent.child[i].id == wid-1) {
-                                    next = site.focus.parent.child[i];
-                                    break;
-                                }
-                                if (site.focus.parent.child[i].id == wid+1) {
-                                    next = site.focus.parent.child[i];
-                                }
-                            }
-                            site.focus.kill();
-                            site.focus = next;
+                            site.focusws.windows.push(new Window());
                             ResizeAll();
                         }
+                        else if (e.keyCode == "81") {
+                            site.focus.kill();
+                        }
                         else if (e.keyCode == "72") {
-                            site.direction = "right";
+                            site.focus.next = "right";
                         }
                         else if (e.keyCode == "86") {
-                            site.direction = "down";
+                            site.focus.next = "down";
+                        }
+                        else if (e.keyCode == "69") {
                         }
                     }
                 });
             });
         </script>
+        <link href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono" type="text/css" rel="stylesheet">
         <style>
             html,
             body {
@@ -335,9 +388,7 @@
                 width: 100%;
             }
             .window {
-                height: 100%;
-                width: 100%;
-                float: left;
+                position: fixed;
                 border-width: 1px;
                 border-color: #2d2d2d;
                 border-style: solid;
