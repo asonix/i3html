@@ -28,3 +28,10 @@ TODO:
   - Learn HTML5
  - ?Web-browser?
   - iframes
+
+COMMANDS:
+ - alt+enter - create new window
+ - alt+q - remove new window
+ - alt+h - next window will open to the right of the focused window
+ - alt+v - next window will open below the focused window
+ - alt+e - nothing - used to test things
