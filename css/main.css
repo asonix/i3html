@@ -1,0 +1,36 @@
+html,
+body {
+    font-family: Droid Sans Mono;
+    background-color: #2d2d2d;
+    color: #e5e5e5;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+.bar {
+    height: 20px;
+    font-size: 12px;
+}
+.left,
+.right {
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.workspace {
+    height: 100%;
+    width: 100%;
+}
+.window {
+    position: fixed;
+    border-width: 1px;
+    border-color: #2d2d2d;
+    border-style: solid;
+}
