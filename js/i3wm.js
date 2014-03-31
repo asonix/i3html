@@ -4,6 +4,15 @@ Implement window in-place resize for kills
     On kill, if window has children, expand children to fill space
 Create i3bar && i3status
 Implement multiple workspaces
+    During animation of workspace slide
+        let x = distance from current ws to destination ws
+        let y = current distance
+        if (y < x/2) {
+            pxvalue = y*Math.pow(2y/x,2);
+        }
+        else {
+            pxvalue = y*Math.sqrt(2y/x);
+        }
 Implement window floating
     Resize should build array of windows with this.float = false && only affect those windows
 */

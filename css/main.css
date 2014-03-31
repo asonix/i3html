@@ -29,7 +29,7 @@ body {
     width: 100%;
 }
 .window {
-    position: fixed;
+    position: absolute;
     border-width: 1px;
     border-color: #2d2d2d;
     border-style: solid;
