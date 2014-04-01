@@ -1,5 +1,11 @@
+Time();
+var site = new Site();
+new Workspace("1");
+
 $(document).ready(function(){
+    
     site.child[0].create();
+    
     $('body').keydown(function(e){
         if (e.altKey) {
             e.preventDefault();

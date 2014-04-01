@@ -307,6 +307,3 @@ function Window() {
         currentwindow.focus();
     }); 
 }
-Time();
-var site = new Site();
-new Workspace("1");
