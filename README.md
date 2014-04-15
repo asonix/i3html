@@ -29,9 +29,19 @@ TODO:
  - ?Web-browser?
   - iframes
 
-COMMANDS:
+KEYBOARD COMMANDS:
  - alt+enter - create new window
  - alt+q - remove new window
  - alt+h - next window will open to the right of the focused window
  - alt+v - next window will open below the focused window
  - alt+e - nothing - used to test things
+BASH COMMANDS:
+ - cd, cd.., cd .., cd ~, cd /, cd [path of folder] - change directory
+ - rm [path to file or folder] - remove file, folder, or command (note: removing commands is not recommended)
+ - mkdir [path] - makes a folder
+ - rmdir [path to folder] - removes a folder
+ - touch [path] - creates a file
+ - ls - list files and folders
+ - clear - clear console
+ - mv [path] [path2] - move file from path to path2
+ - cp [path] [path2] - copy file from path to path2
