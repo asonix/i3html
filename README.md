@@ -14,8 +14,7 @@ TODO:
   - Attempt to change on key combination, fix what breaks
   
  TERM:
- - Look at CMDproject, take what works, convert to bash (change dir to ls, cls to clear, etc.)
-  - Add support for more commands
+ - Add support for more commands
  
  APPLICATIONS:
  - Text-editor
@@ -35,6 +34,7 @@ KEYBOARD COMMANDS:
  - alt+h - next window will open to the right of the focused window
  - alt+v - next window will open below the focused window
  - alt+e - nothing - used to test things
+
 BASH COMMANDS:
  - cd, cd.., cd .., cd ~, cd /, cd [path of folder] - change directory
  - rm [path to file or folder] - remove file, folder, or command (note: removing commands is not recommended)
