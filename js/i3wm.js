@@ -72,7 +72,7 @@ function Workspace(name) {
         }
     }
 }
-function SearchParentDirections(currentwindow,expanddir) {
+function searchParentDirections(currentwindow,expanddir) {
     this.search = function(x) {
         var returned = [x,x.parent];
         var type = currentwindow.parent.type;
@@ -90,7 +90,7 @@ function SearchParentDirections(currentwindow,expanddir) {
         return(this.search(currentwindow));
     }
 }
-function NewWindowSize(newwindow) { 
+function newWindowSize(newwindow) { 
     var q = newwindow.parent.child.length+1;
 
     if (newwindow.parent.type == "workspace") {
@@ -144,16 +144,16 @@ function NewWindowSize(newwindow) {
         }
     }
 }
-function RepositionAll(outer,totalx,totaly) {
+function repositionAll(outer,totalx,totaly) {
     var ichild;
     for (var i = 0; i < outer.child.length; i++) {
         ichild = outer.child[i];
         
         if (ichild.next == "right") {
-            RepositionAll(ichild,totalx+ichild.width,totaly);
+            repositionAll(ichild,totalx+ichild.width,totaly);
         }
         else if (ichild.next == "down") {
-            RepositionAll(ichild,totalx,totaly+ichild.height);
+            repositionAll(ichild,totalx,totaly+ichild.height);
         }
         
         if (ichild.direction == "right") {
@@ -169,7 +169,7 @@ function RepositionAll(outer,totalx,totaly) {
         ichild.html.css("top",ichild.ypos+"px").css("left",ichild.xpos+"px");
     }
 }
-function ResizeAll() {
+function resizeAll() {
     for (var i = 0; i < site.child.length; i++) {
         for (var j = 0; j < site.child[i].windows.length; j++) {
             var ref = site.child[i].windows[j];
@@ -177,7 +177,7 @@ function ResizeAll() {
         }
     }
 }
-function AssignParent(newwindow) {
+function assignParent(newwindow) {
      
     if (site.focus.next == "right" || site.focus.next == "down") {
         newwindow.parent = site.focus;
@@ -189,7 +189,7 @@ function AssignParent(newwindow) {
         newwindow.parent = site.focusws;
     }
 }
-function Window() {
+function Window(application) {
     this.create = function() {
         if (this.workspace.windows.length == 0) {
             $(".workspace").append("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
@@ -275,11 +275,11 @@ function Window() {
                 this.parent.focus();
             }
         }
-        ResizeAll();
-        RepositionAll(site.focusws,0,$(".bar").height());
+        resizeAll();
+        repositionAll(site.focusws,0,$(".bar").height());
     }
     
-    AssignParent(this);
+    assignParent(this);
     var index = 0;
     for (var i = 0; i < this.parent.child.length; i++) {
         if (this.parent.child[i] == site.focus) {
@@ -292,15 +292,18 @@ function Window() {
     this.float = false;
     this.direction = this.parent.next;
     this.next = "none";
-    NewWindowSize(this);
+    newWindowSize(this);
     this.id = site.child[0].windows.length;
     this.workspace = this.parent.workspace;
     this.xpos = 0;
     this.ypos = 0;
     
     this.create();
-    RepositionAll(site.focusws,0,$(".bar").height());
+    repositionAll(site.focusws,0,$(".bar").height());
     this.focus();
+    this.app = application();
+    this.app.html = this.html;
+    this.app.create();
 
     var currentwindow = this;
     $("#"+this.id+this.type).mouseover(function() {

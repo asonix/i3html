@@ -10,8 +10,10 @@ $(document).ready(function(){
         if (e.altKey) {
             e.preventDefault();
             if (e.keyCode == "13") {
-                site.focusws.windows.push(new Window());
-                ResizeAll();
+                site.focusws.windows.push(new Window(function(){
+                    return(new BashWindow());
+                }));
+                resizeAll();
             }
             else if (e.keyCode == "81") {
                 site.focus.kill();

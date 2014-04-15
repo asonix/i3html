@@ -29,8 +29,10 @@ body {
     width: 100%;
 }
 .window {
+    font-size: 12px;
     position: absolute;
     border-width: 1px;
-    border-color: #2d2d2d;
+    border-color: #444444;
+    color: #2d2d2d;
     border-style: solid;
 }
