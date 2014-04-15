@@ -1,6 +1,8 @@
 i3html
 ======
 
+![image](img/i3.png)
+
 A web implementation of the i3wm with simulated bash+programs written from scratch.
 
 This is a project for a web tech class I am currently in, and I am trying to write it without referencing i3's code. I feel like there could be a better way to do some of the things I've written code to do, but I'll only switch over if I really run into a road block with the way I'm doing things.
