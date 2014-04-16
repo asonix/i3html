@@ -43,4 +43,28 @@ body {
     border-color: #444444;
     border-style: solid;
     margin: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 5px 5px 5px #2d2d2d;
+    z-index: 1;
+}
+#github {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    background-color: #e5e5e5;
+    color: #d64937;
+    font-size: 12px;
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 3px;
+    border-radius: 3px 0px 0px 0px;
+    z-index: 2;
+}
+a,
+a:hover,
+a:visited,
+a:active {
+    color: #d64937;
 }

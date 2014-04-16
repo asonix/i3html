@@ -1,4 +1,4 @@
-var inset = 5;
+var inset = 20;
 var border = 2;
 function time() {
     var h,m,s,Y,M,D;
