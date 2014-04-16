@@ -55,7 +55,6 @@ function newWindowSize(newwindow) {
             totaly += newwindow.parent.child[i].height;
         }
     }
-
     if (newwindow.parent.type == "window") {
         totalx += newwindow.parent.width;
         totaly += newwindow.parent.height;
@@ -92,39 +91,39 @@ function newWindowSize(newwindow) {
     }
 }
 
-function repositionAll(outer,totalx,totaly) {
+function repositionAll(outer,totalx,totaly,workspace) {
     var ichild;
     for (var i = 0; i < outer.child.length; i++) {
-        ichild = outer.child[i];
-        
-        if (ichild.next == "right") {
-            repositionAll(ichild,totalx+ichild.width,totaly);
+        if (outer.workspace == workspace) {
+            ichild = outer.child[i];
+            
+            if (ichild.next == "right") {
+                repositionAll(ichild,totalx+ichild.width,totaly,workspace);
+            }
+            else if (ichild.next == "down") {
+                repositionAll(ichild,totalx,totaly+ichild.height,workspace);
+            }
+            
+            if (ichild.direction == "right") {
+                ichild.ypos = totaly;
+                ichild.xpos = totalx;
+                totalx += ichild.width;
+            }
+            else {
+                ichild.xpos = totalx;
+                ichild.ypos = totaly;
+                totaly += ichild.height;
+            }
+            ichild.html.css("top",ichild.ypos+"px").css("left",ichild.xpos+"px");
         }
-        else if (ichild.next == "down") {
-            repositionAll(ichild,totalx,totaly+ichild.height);
-        }
-        
-        if (ichild.direction == "right") {
-            ichild.ypos = totaly;
-            ichild.xpos = totalx;
-            totalx += ichild.width;
-        }
-        else {
-            ichild.xpos = totalx;
-            ichild.ypos = totaly;
-            totaly += ichild.height;
-        }
-        ichild.html.css("top",ichild.ypos+"px").css("left",ichild.xpos+"px");
     }
 }
 
-function resizeAll() {
-    for (var i = 0; i < site.child.length; i++) {
-        for (var j = 0; j < site.child[i].windows.length; j++) {
-            var ref = site.child[i].windows[j];
+function resizeAll(workspace) {
+        for (var j = 0; j < workspace.windows.length; j++) {
+            var ref = workspace.windows[j];
             $("#"+ref.id+ref.type).css('height',ref.height-2+'px').css('width',ref.width-2+'px');
         }
-    }
 }
 
 function assignParent(newwindow) {

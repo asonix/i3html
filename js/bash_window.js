@@ -8,7 +8,7 @@ function BashWindow() {
     this.html;
     var html;
     this.focus = function() {
-        this.input.focus();
+        s.focus();
     }
     this.create1 = function() {
         html.html("<div class=\"append\"></div>").append("<div class=\"active\"></div>");

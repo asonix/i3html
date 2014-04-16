@@ -9,7 +9,7 @@ $(document).ready(function(){
                 site.focusws.windows.push(new Window(function(){
                     return(new BashWindow());
                 }));
-                resizeAll();
+                resizeAll(site.focusws);
             }
             else if (e.keyCode == "81") {
                 site.focus.kill();

@@ -26,11 +26,23 @@ function Site() {
             this.focusws.html.hide();
             this.focusws.focus = false;
         }
+        this.focus = "";
         this.focusws = ws;
         this.focusws.html.show();
+        if (this.focusws.windows.length != 0) {
+            for (var i = 0; i < this.focusws.windows.length; i++) {
+                if (this.focusws.windows[i].isfocused == true) {
+                    site.focus = this.focusws.windows[i];
+                    site.focusws.windows[i].focus();
+                    break;
+                }
+            }
+        }
         this.focusws.focus = true;
         for (var i = 0; i < this.child.length; i++) {
-            this.child[i].check();
+            if (this.child.length != 1 && this.focusws != this.child[i]) {
+                this.child[i].check();
+            }
         }
     }
 }
@@ -58,7 +70,6 @@ function Workspace(name) {
 
     this.check = function() {
         if (this.focus == false && this.windows.length == 0) {
-            console.log("removing");
             $("#"+this.name).remove();
             $("#"+this.name).remove();
             for (var i = 0; i < site.child.length; i++) {
@@ -74,7 +85,6 @@ function Workspace(name) {
 
 function Window(application) {
     this.create = function() {
-        console.log(this.workspace.name);
         if (this.workspace.windows.length == 0) {
             this.workspace.html.append("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
         }
@@ -82,21 +92,29 @@ function Window(application) {
             site.focus.html.after("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
         }
         this.html = $("#"+this.id+this.type);
-        this.html.css("background-color", "#e5e5e5").css("border-color","#d64937");
+        this.html.append("<div class=\"appholder\"></div>");
+        this.appholder = this.html.find(".appholder");
+        this.appholder.css("background-color", "#e5e5e5").css("border-color","#d64937");
     }
     
     this.focus = function() {
-        site.focus = this;
-        for (var i = 0; i < site.focusws.windows.length; i++) {
-            site.focusws.windows[i].unfocus();
+        for (var i = 0; i < this.workspace.windows.length; i++) {
+            if (this.workspace.windows[i] != this) {
+                this.workspace.windows[i].unfocus();
+            }
         }
         site.focus = this;
-        this.html.css("border-color","#d64937");
+        this.isfocused = true;
+        site.focus = this;
+        this.appholder.css("border-color","#d64937");
         this.app.focus();
     }
 
     this.unfocus = function() {
-        this.html.css("border-color","#2d2d2d");
+        if (site.focusws == this.workspace) {
+            this.isfocused = false;
+            this.html.css("border-color","#2d2d2d");
+        }
     }
 
     this.kill = function() {
@@ -159,12 +177,11 @@ function Window(application) {
                 this.parent.focus();
             }
         }
-        resizeAll();
-        repositionAll(site.focusws,0,$(".bar").height());
+        resizeAll(this.workspace);
+        repositionAll(site.focusws,0,$(".bar").height(),this.workspace);
     }
     
     assignParent(this);
-    console.log(this.parent);
     var index = 0;
     for (var i = 0; i < this.parent.child.length; i++) {
         if (this.parent.child[i] == site.focus) {
@@ -184,9 +201,9 @@ function Window(application) {
     this.ypos = 0;
     
     this.create();
-    repositionAll(site.focusws,0,$(".bar").height());
+    repositionAll(site.focusws,0,$(".bar").height(),this.workspace);
     this.app = application();
-    this.app.html = this.html;
+    this.app.html = this.appholder;
     this.app.create();
     this.focus();
 

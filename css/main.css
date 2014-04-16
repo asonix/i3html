@@ -31,9 +31,14 @@ body {
 .window {
     font-size: 12px;
     position: absolute;
+    color: #2d2d2d;
+    overflow: auto;
+}
+.appholder {
+    height: 100%;
+    width: 100%;
     border-width: 1px;
     border-color: #444444;
-    color: #2d2d2d;
     border-style: solid;
-    overflow: auto;
+    margin: auto;
 }
