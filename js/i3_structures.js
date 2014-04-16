@@ -94,7 +94,7 @@ function Window(application) {
         this.html = $("#"+this.id+this.type);
         this.html.append("<div class=\"appholder\"></div>");
         this.appholder = this.html.find(".appholder");
-        this.appholder.css("background-color", "#e5e5e5").css("border-color","#d64937");
+        this.appholder.css("border-color","#d64937");
     }
     
     this.focus = function() {
@@ -113,7 +113,7 @@ function Window(application) {
     this.unfocus = function() {
         if (site.focusws == this.workspace) {
             this.isfocused = false;
-            this.html.css("border-color","#2d2d2d");
+            this.appholder.css("border-color","#2d2d2d");
         }
     }
 

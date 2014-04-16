@@ -1,7 +1,7 @@
 html,
 body {
     font-family: Droid Sans Mono;
-    background-color: #2d2d2d;
+    background-color: #666666;
     color: #e5e5e5;
     height: 100%;
     margin: 0px;
@@ -11,6 +11,7 @@ body {
 .bar {
     height: 20px;
     font-size: 12px;
+    background-color: #2d2d2d;
 }
 .left,
 .right {
@@ -31,13 +32,14 @@ body {
 .window {
     font-size: 12px;
     position: absolute;
-    color: #2d2d2d;
-    overflow: auto;
+    overflow: hidden;
 }
 .appholder {
     height: 100%;
     width: 100%;
-    border-width: 1px;
+    color: #2d2d2d;
+    background-color: #e5e5e5;
+    border-width: 2px;
     border-color: #444444;
     border-style: solid;
     margin: auto;
