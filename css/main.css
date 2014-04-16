@@ -35,4 +35,5 @@ body {
     border-color: #444444;
     color: #2d2d2d;
     border-style: solid;
+    overflow: auto;
 }

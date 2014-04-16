@@ -1,7 +1,3 @@
-time();
-var site = new Site();
-new Workspace("1");
-
 $(document).ready(function(){
     
     site.child[0].create();
@@ -26,6 +22,60 @@ $(document).ready(function(){
             }
             else if (e.keyCode == "69") {
             }
+            else if (Number(e.keyCode) >= 48 && Number(e.keyCode) <= 57) {
+                var name = "missing";
+                var ws;
+                if (e.keyCode == "49") {
+                    name = "1";
+                }
+                else if (e.keyCode == "50") {
+                    name = "2";
+                }
+                else if (e.keyCode == "51") {
+                    name = "3";
+                }
+                else if (e.keyCode == "52") {
+                    name = "4";
+                }
+                else if (e.keyCode == "53") {
+                    name = "5";
+                }
+                else if (e.keyCode == "54") {
+                    name = "6";
+                }
+                else if (e.keyCode == "55") {
+                    name = "7";
+                }
+                else if (e.keyCode == "56") {
+                    name = "8";
+                }
+                else if (e.keyCode == "57") {
+                    name = "9";
+                }
+                else if (e.keyCode == "48") {
+                    name = "10";
+                }
+                for (var i = 0; i < site.child.length; i++) {
+                    if (site.child[i].name == name) {
+                        ws = site.child[i];
+                    }
+                }
+                if (typeof(ws) != "undefined" && name != "missing") {
+                    site.changews(ws);
+                }
+                else if (typeof(ws) == "undefined" && name != "missing") {
+                    new Workspace(name);
+                    for (var i = 0; i < site.child.length; i++) {
+                        if (site.child[i].name == name) {
+                            ws = site.child[i];
+                        }
+                    }
+                }
+                if (typeof(ws) != "undefined" && name != "missing") {
+                    site.changews(ws);
+                }
+            }
         }
     });
 });
+

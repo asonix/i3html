@@ -7,6 +7,9 @@ function BashWindow() {
     var u;
     this.html;
     var html;
+    this.focus = function() {
+        this.input.focus();
+    }
     this.create1 = function() {
         html.html("<div class=\"append\"></div>").append("<div class=\"active\"></div>");
         html.find(".active").append("<span class=\"currentdir\"></span>").append("<input autofocus type=\"text\" name=\"cmd\" class=\"input\" id=\"input\" autocomplete=\"off\" />");

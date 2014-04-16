@@ -21,6 +21,18 @@ function Site() {
     this.direction = "right";
     this.focus = "none";
     this.focusws = "none";
+    this.changews = function(ws) {
+        if (typeof(this.focusws.html) != "undefined") {
+            this.focusws.html.hide();
+            this.focusws.focus = false;
+        }
+        this.focusws = ws;
+        this.focusws.html.show();
+        this.focusws.focus = true;
+        for (var i = 0; i < this.child.length; i++) {
+            this.child[i].check();
+        }
+    }
 }
 
 function Workspace(name) {
@@ -29,8 +41,6 @@ function Workspace(name) {
     this.parent.child.push(this);
     this.name = name;
     this.type = "workspace"
-    this.focus = true;
-    site.focusws = this;
     this.windows = [];
     this.workspace = this;
 
@@ -41,24 +51,32 @@ function Workspace(name) {
         this.html = $("#"+this.name);
         this.html.height(this.height);
         this.html.width(this.width);
-        $(".bar .left").append(this.name);
-
+        $(".bar .left").append("<span id=\""+this.name+"\">"+this.name+"</span>");
+        this.focus = true;
+        site.changews(this);
     }
 
-    if (this.focus == false && this.child.length == 0) {
-        for (var i = 0; i < site.child.length; i++) {
-            if (site.child[i] == this) {
-                site.child.splice(i,1);
-                break;
+    this.check = function() {
+        if (this.focus == false && this.windows.length == 0) {
+            console.log("removing");
+            $("#"+this.name).remove();
+            $("#"+this.name).remove();
+            for (var i = 0; i < site.child.length; i++) {
+                if (site.child[i] == this) {
+                    site.child.splice(i,1);
+                    break;
+                }
             }
         }
     }
+    this.create();
 }
 
 function Window(application) {
     this.create = function() {
+        console.log(this.workspace.name);
         if (this.workspace.windows.length == 0) {
-            $(".workspace").append("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
+            this.workspace.html.append("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
         }
         else {
             site.focus.html.after("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
@@ -74,6 +92,7 @@ function Window(application) {
         }
         site.focus = this;
         this.html.css("border-color","#d64937");
+        this.app.focus();
     }
 
     this.unfocus = function() {
@@ -94,7 +113,6 @@ function Window(application) {
             }
         }
         else {
-
             var includeparent = -1;
             if (this.parent.type == "window") {
                 includeparent = 0;
@@ -146,6 +164,7 @@ function Window(application) {
     }
     
     assignParent(this);
+    console.log(this.parent);
     var index = 0;
     for (var i = 0; i < this.parent.child.length; i++) {
         if (this.parent.child[i] == site.focus) {
@@ -159,17 +178,17 @@ function Window(application) {
     this.direction = this.parent.next;
     this.next = "none";
     newWindowSize(this);
-    this.id = site.child[0].windows.length;
     this.workspace = this.parent.workspace;
+    this.id = this.workspace.windows.length;
     this.xpos = 0;
     this.ypos = 0;
     
     this.create();
     repositionAll(site.focusws,0,$(".bar").height());
-    this.focus();
     this.app = application();
     this.app.html = this.html;
     this.app.create();
+    this.focus();
 
     var currentwindow = this;
     $("#"+this.id+this.type).mouseover(function() {

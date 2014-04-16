@@ -128,12 +128,13 @@ function resizeAll() {
 }
 
 function assignParent(newwindow) {
-     
-    if (site.focus.next == "right" || site.focus.next == "down") {
-        newwindow.parent = site.focus;
-    }
-    else if (site.focus.next == "none") {
-        newwindow.parent = site.focus.parent;
+    if (site.focus.workspace == site.focusws) { 
+        if (site.focus.next == "right" || site.focus.next == "down") {
+            newwindow.parent = site.focus;
+        }
+        else if (site.focus.next == "none") {
+            newwindow.parent = site.focus.parent;
+        }
     }
     else {
         newwindow.parent = site.focusws;
