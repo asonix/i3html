@@ -102,7 +102,6 @@ function currentline(cur_win) {
 function handleErrors(output,cur_win) {
     if (typeof(output) == "string") {
         cur_win.append.append(output+"</br>");
-        console.log(cur_win.append);
         return(false);
     }
     else {

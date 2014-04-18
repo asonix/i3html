@@ -1,7 +1,24 @@
 $(document).ready(function(){
     
     site.child[0].create();
+    $("#github").mouseenter(function(){
+        $(".github2").fadeOut(300);
+        $(".github").delay(400).fadeIn(300);
+        $("#github").animate({bottom: "0"});
+        $("#github").mouseleave(function(){
+            $(".github").fadeOut(300);
+            $(".github2").delay(400).fadeIn(300);
+            $("#github").animate({bottom: "-100"});
+        });
+    });
     
+    $(".instructions").click(function(){
+        site.focusws.windows.push(new Window(function(){
+            return(new BashWindow("help"));
+        }));
+        resizeAll(site.focusws);
+    });
+
     $('body').keydown(function(e){
         if (e.altKey) {
             e.preventDefault();

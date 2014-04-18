@@ -48,3 +48,4 @@ BASH COMMANDS:
  - clear - clear console
  - mv [path] [path2] - move file from path to path2
  - cp [path] [path2] - copy file from path to path2
+ - help - displays help dialogue

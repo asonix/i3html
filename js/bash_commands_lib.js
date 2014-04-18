@@ -225,3 +225,32 @@ function copy(args,cur_win_dir,cur_win) {
         }
     }
 }
+function help(cur_win) {
+    handleErrors("This is the help dialogue.",cur_win);
+    handleErrors("",cur_win);
+    handleErrors("i3html is currently in heavy development. Luckily, it is a website and not a downloadable program, so don't worry about it crashing your computer or anything.",cur_win);
+    handleErrors("",cur_win);
+    handleErrors("A list of possible commands follows:",cur_win);
+    handleErrors("",cur_win);
+    handleErrors(" - Keyboard Shortcuts",cur_win);
+    handleErrors("",cur_win);
+    handleErrors("Alt+Enter: Opens a terminal window",cur_win);
+    handleErrors("Alt+V: The next window will be opened beneath the focused window",cur_win);
+    handleErrors("Alt+H: The next window will be opened to the right of the focused window",cur_win);
+    handleErrors("Alt+Q: Close the focused window",cur_win);
+    handleErrors("Alt+1 through Alt+0: [INCOMPLETE] Switch to a new workspace",cur_win);
+    handleErrors("",cur_win);
+    handleErrors(" - Bash Commands",cur_win);
+    handleErrors("",cur_win);
+    handleErrors("cd, cd ~, cd /, cd .., cd [path]: Change directory",cur_win);
+    handleErrors("mkdir [path]: Make a new directory",cur_win);
+    handleErrors("mv [path1] [path2]: Move path1 to path2",cur_win);
+    handleErrors("cp [path1] [path2], cp -r [path1] [path2]: Copy path1 to path2",cur_win);
+    handleErrors("touch [path]: create a file at [path]",cur_win);
+    handleErrors("ls: list files and folders in the current directory",cur_win);
+    handleErrors("rm [path]: deletes a file or folder",cur_win);
+    handleErrors("rmdir [path]: deletes a folder",cur_win);
+    handleErrors("clear: clears the terminal",cur_win);
+    handleErrors("help: display this help dialogue",cur_win);
+    handleErrors("",cur_win);
+}

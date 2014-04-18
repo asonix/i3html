@@ -1,5 +1,5 @@
-function BashWindow() {
-    this.currentdirectory = fs;
+function BashWindow(command) {
+    this.currentdirectory = fs.currentdir;
     var q = this;
     var r;
     var s;
@@ -18,10 +18,18 @@ function BashWindow() {
         s = html.find(".active").find("input");
         t = html.find(".append");
     }
-    this.create2 = function(q) {
+    this.create2 = function(q,command) {
         r.html(currentline(q.currentdirectory)+" ");
         s.val("");
-        
+        if (typeof(command) != "undefined") {
+            var parsing = command.split(" ");
+            u.toggle();
+            t.append(currentline(q.currentdirectory)+" "+command+"</br>");
+            runCommand(parsing,q.currentdirectory,q);
+            r.html(currentline(q.currentdirectory)+" ");
+            s.val("");
+            u.toggle();
+        }
         s.keypress(function(key) {
             if (key.keyCode == 13) {    //'enter'
                 var formInput = s.val();
@@ -50,6 +58,6 @@ function BashWindow() {
         this.input = s;
         this.append = t;
 
-        this.create2(this);
+        this.create2(this,command);
     }
 }

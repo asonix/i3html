@@ -2,10 +2,11 @@
 none = "";
 var fs = new FileSystem();
 makeDirectory([["home"]],"folder",fs.currentdir,none);
+makeDirectory([["home","riley"]],"folder",fs.currentdir,none);
 makeDirectory([["usr"]],"folder",fs.currentdir,none);
 makeDirectory([["usr","bin"]],"folder",fs.currentdir,none);
 
-fs.userdir = search(preparePath("/home"),"","folder",fs.currentdir,none);
+fs.userdir = search(preparePath("/home/riley"),"","folder",fs.currentdir,none);
 
 //OPTIONAL
 makeDirectory([["usr","share"]],"folder",fs.currentdir,none);
@@ -34,9 +35,10 @@ makeDirectory([["srv"]],"folder",fs.currentdir,none);
 makeDirectory([["tmp"]],"folder",fs.currentdir,none);
 makeDirectory([["var"]],"folder",fs.currentdir,none);
 
-makeDirectory([["home","riley"]],"folder",fs.currentdir,none);
 makeDirectory([["home","riley","Documents"]],"folder",fs.currentdir,none);
 makeDirectory([["home","riley","Downloads"]],"folder",fs.currentdir,none);
 makeDirectory([["home","riley","Music"]],"folder",fs.currentdir,none);
 makeDirectory([["home","riley","Pictures"]],"folder",fs.currentdir,none);
 makeDirectory([["home","riley","Videos"]],"folder",fs.currentdir,none);
+
+fs.currentdir = fs.userdir;

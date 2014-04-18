@@ -33,3 +33,7 @@ new Command("mv", function(args,cur_win_dir,cur_win) {
 new Command("cp", function(args,cur_win_dir,cur_win) {
     copy(args,cur_win_dir,cur_win);
 });
+new Command("help", function(args,cur_win_dir,cur_win) {
+    help(cur_win);
+});
+
