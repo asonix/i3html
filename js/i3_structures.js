@@ -208,7 +208,7 @@ function Window(application) {
     this.focus();
 
     var currentwindow = this;
-    $("#"+this.id+this.type).mouseover(function() {
+    this.appholder.mouseover(function() {
         currentwindow.focus();
     }); 
 }
