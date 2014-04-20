@@ -2,7 +2,7 @@
 Implement window in-place resize for kills
     Fill open space when window is removed
     On kill, if window has children, expand children to fill space
-Create i3bar && i3status
+Create i3status
 Implement multiple workspaces
     During animation of workspace slide
         let x = distance from current ws to destination ws

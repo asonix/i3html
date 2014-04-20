@@ -36,4 +36,9 @@ new Command("cp", function(args,cur_win_dir,cur_win) {
 new Command("help", function(args,cur_win_dir,cur_win) {
     help(cur_win);
 });
-
+new Command("settings", function(args,cur_win_dir,cur_win) {
+    site.focusws.windows.push(new Window(function(){
+        return(new Settings());
+    }));
+    resizeAll(site.focusws);
+});
