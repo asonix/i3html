@@ -1,23 +1,22 @@
-function Test() {
+var BashSettings = new function() {
+    this.padding = 5;
+    this.fontsize = 12;
     var m = this;
-    this.name = "test";
-    this.one = true;
-    this.two = false;
-    this.three = "three";
-    this.four = "6";
-    this.create = function() {
-        m.c1 = new CheckBox("testOne",this.one);
-        m.c2 = new CheckBox("testTwo",this.two);
-        m.c3 = new SelectBox("testThree",["one","two","three"],this.three);
-        m.c4 = new TextBox("testFour",this.four);
-    }
     this.settings = function() {
-        this.create();
+        m.text1 = new TextBox("Padding",m.padding+"");
+        m.text2 = new TextBox("Font Size",m.fontsize+"");
+        var re1 = new RisingEdge();
+        var re2 = new RisingEdge();
         var q = setInterval(function(){
-            m.one = m.c1.check();
-            m.two = m.c2.check();
-            m.three = m.c3.check();
-            m.four = m.c4.check();
+            m.padding = Number(m.text1.check());
+            m.fontsize = Number(m.text2.check());
+            if (re1.check(m.fontsize)) {
+                $(".bashContainer").css("font-size",m.fontsize+"px");
+                $(".input").css("font-size",m.fontsize+"px");
+            }
+            if (re2.check(m.padding)) {
+                $(".bashContainer").css("padding",m.padding+"px");
+            }
             $("#shome").click(function(){
                 clearInterval(q);
             });
@@ -25,7 +24,50 @@ function Test() {
     }
 }
 
-var t1 = new Test();
-var t2 = new Test();
-var t3 = new Test();
-var t4 = new Test();
+var WmSettings = new function() {
+    this.inset = 20;
+    this.fontsize = 12;
+    this.border = 5;
+    var m = this;
+    this.settings = function() {
+        m.text1 = new TextBox("Inset",m.inset+"");
+        m.text2 = new TextBox("Font Size",m.fontsize+"");
+        m.text3 = new TextBox("Border Width",m.border+"");
+        var re1 = new RisingEdge();
+        var re2 = new RisingEdge();
+        var q = setInterval(function(){
+            m.inset = Number(m.text1.check());
+            m.fontsize = Number(m.text2.check());
+            m.border = Number(m.text3.check());
+            if (re1.check(m.inset) || re2.check(m.border)) {
+                for (var i = 0; i < site.child.length; i++) {
+                    resizeAll(site.child[i]);
+                }
+            }
+            $("#shome").click(function(){
+                clearInterval(q);
+            });
+        },25);
+    }
+}
+
+var Preferences = new function() {
+    this.title = 24;
+    this.fontsize = 16;
+    this.name = 12;
+    var m = this;
+    this.settings = function() {
+        m.text1 = new TextBox("Category Size",m.title+"");
+        m.text2 = new TextBox("Attribute Size",m.fontsize+"");
+        m.text3 = new TextBox("Name Size",m.name+"");
+        var q = setInterval(function(){
+            m.title = Number(m.text1.check());
+            m.fontsize = Number(m.text2.check());
+            m.name = Number(m.text3.check());
+            $("#shome").click(function(){
+                clearInterval(q);
+            });
+        },25);
+    }
+}
+

@@ -1,4 +1,5 @@
 function Settings() {
+    this.name = "Settings";
     var q = this;
     this.html;
     var html;

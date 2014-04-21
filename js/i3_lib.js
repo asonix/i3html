@@ -1,5 +1,3 @@
-var inset = 20;
-var border = 2;
 function time() {
     var h,m,s,Y,M,D;
     var recurring = setInterval(function(){
@@ -125,7 +123,8 @@ function resizeAll(workspace) {
         for (var j = 0; j < workspace.windows.length; j++) {
             var ref = workspace.windows[j];
             $("#"+ref.id+ref.type).css('height',ref.height+'px').css('width',ref.width+'px');
-            $("#"+ref.id+ref.type).find(".appholder").css('height',ref.height-2*border-2*inset+'px').css('width',ref.width-2*border-2*inset+'px').css("margin-top",inset+"px").css("margin-left",inset+"px");
+            $("#"+ref.id+ref.type).find(".appholder").css('height',ref.height-2*WmSettings.border-2*WmSettings.inset+'px').css('width',ref.width-2*WmSettings.border-2*WmSettings.inset+'px').css("margin-top",WmSettings.inset+"px").css("margin-left",WmSettings.inset+"px");
+            $(".appholder").css("border-width",WmSettings.border+"px");
         }
 }
 
