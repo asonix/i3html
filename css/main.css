@@ -25,6 +25,10 @@ body {
 .right {
     float: right;
 }
+.indicator {
+    padding-left: 3px;
+    padding-right: 3px;
+}
 .workspace {
     height: 100%;
     width: 100%;

@@ -65,7 +65,7 @@ function Workspace(name) {
         this.html = $("#"+this.name);
         this.html.height(this.height);
         this.html.width(this.width);
-        $(".bar .left").append("<span id=\""+this.name+"bar\">"+this.name+"</span>");
+        $(".bar .left").append("<span class=\"indicator\" id=\""+this.name+"bar\">"+this.name+"</span>");
         this.indicator = $("#"+this.name+"bar");
         this.focus = true;
         site.changews(this);

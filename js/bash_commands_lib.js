@@ -238,7 +238,8 @@ function help(cur_win) {
     handleErrors("Alt+V: The next window will be opened beneath the focused window",cur_win);
     handleErrors("Alt+H: The next window will be opened to the right of the focused window",cur_win);
     handleErrors("Alt+Q: Close the focused window",cur_win);
-    handleErrors("Alt+1 through Alt+0: [INCOMPLETE] Switch to a new workspace",cur_win);
+    handleErrors("Alt+D: Open dmenu",cur_win);
+    handleErrors("Alt+1 through Alt+0: Switch to a new workspace",cur_win);
     handleErrors("",cur_win);
     handleErrors(" - Bash Commands",cur_win);
     handleErrors("",cur_win);
@@ -251,6 +252,8 @@ function help(cur_win) {
     handleErrors("rm [path]: deletes a file or folder",cur_win);
     handleErrors("rmdir [path]: deletes a folder",cur_win);
     handleErrors("clear: clears the terminal",cur_win);
+    handleErrors("settings: open the settings dialogue",cur_win);
+    handleErrors("term: open the terminal",cur_win);
     handleErrors("help: display this help dialogue",cur_win);
     handleErrors("",cur_win);
 }

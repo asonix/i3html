@@ -1,6 +1,6 @@
 function SettingsHolder() {
     this.q = [];
-    this.q.push(new AppSettings("weBASH","Applications",function(){
+    this.q.push(new AppSettings("term","Applications",function(){
         return(BashSettings);
     }));
     this.q.push(new AppSettings("i3html","System",function(){

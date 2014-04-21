@@ -2,6 +2,10 @@ function dmenu() {
     $("body").append("<div class=\"dmenu\"></div>");
     $(".dmenu").append("<input id=\"dmenu\" name=\"dmenu\"type=\"text\" value=\"\" />").append("<span id=\"dapp\"></span>");
     $(".dmenu input").focus();
+    $(".dmenu").mouseover(function(){
+        $(".dmenu input").focus();
+        console.log("focusing");
+    });
     var workingdir = search(preparePath("/usr/bin"),"","folder");
     var q;
     var r;
