@@ -27,7 +27,7 @@ var BashSettings = new function() {
 var WmSettings = new function() {
     this.inset = 20;
     this.fontsize = 12;
-    this.border = 5;
+    this.border = 3;
     var m = this;
     this.settings = function() {
         m.text1 = new TextBox("Inset",m.inset+"");
@@ -35,6 +35,7 @@ var WmSettings = new function() {
         m.text3 = new TextBox("Border Width",m.border+"");
         var re1 = new RisingEdge();
         var re2 = new RisingEdge();
+        var re3 = new RisingEdge();
         var q = setInterval(function(){
             m.inset = Number(m.text1.check());
             m.fontsize = Number(m.text2.check());
@@ -43,6 +44,10 @@ var WmSettings = new function() {
                 for (var i = 0; i < site.child.length; i++) {
                     resizeAll(site.child[i]);
                 }
+            }
+            if (re3.check(m.fontsize)) {
+                $(".bar").css("font-size",m.fontsize+"px");
+                $(".wintitle").css("font-size",m.fontsize+"px");
             }
             $("#shome").click(function(){
                 clearInterval(q);
@@ -57,13 +62,25 @@ var Preferences = new function() {
     this.name = 12;
     var m = this;
     this.settings = function() {
-        m.text1 = new TextBox("Category Size",m.title+"");
-        m.text2 = new TextBox("Attribute Size",m.fontsize+"");
-        m.text3 = new TextBox("Name Size",m.name+"");
+        m.text1 = new TextBox("Large Size",m.title+"");
+        m.text2 = new TextBox("Medium Size",m.fontsize+"");
+        m.text3 = new TextBox("Small Size",m.name+"");
+        var re1 = new RisingEdge();
+        var re2 = new RisingEdge();
+        var re3 = new RisingEdge();
         var q = setInterval(function(){
             m.title = Number(m.text1.check());
             m.fontsize = Number(m.text2.check());
             m.name = Number(m.text3.check());
+            if (re1.check(m.title)) {
+                $(".ctitle").css("font-size",m.title+"px");
+            }
+            if (re2.check(m.fontsize)) {
+                $(".attributes").css("font-size",m.fontsize+"px");
+            }
+            if (re3.check(m.name)) {
+                $(".plug").css("font-size",m.name+"px");
+            }
             $("#shome").click(function(){
                 clearInterval(q);
             });

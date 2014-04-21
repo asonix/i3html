@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    $(".bashContainer").css("font-size",BashSettings.fontsize+"px");
+    $(".input").css("font-size",BashSettings.fontsize+"px");
+    $(".bashContainer").css("padding",BashSettings.padding+"px");
+    $(".plug").css("font-size",Preferences.name+"px");
+    $(".attributes").css("font-size",Preferences.fontsize+"px");
+    $(".ctitle").css("font-size",Preferences.title+"px");
+    $(".bar").css("font-size",WmSettings.fontsize+"px");
+    $(".wintitle").css("font-size",WmSettings.fontsize+"px");
     
     site.child[0].create();
     $("#github").mouseenter(function(){
@@ -17,6 +25,9 @@ $(document).ready(function(){
             return(new BashWindow("help"));
         }));
         resizeAll(site.focusws);
+    });
+    $(".dmenuBtn").click(function(){
+        dmenu();
     });
 
     $('body').keydown(function(e){
@@ -37,7 +48,8 @@ $(document).ready(function(){
             else if (e.keyCode == "86") {
                 site.focus.next = "down";
             }
-            else if (e.keyCode == "69") {
+            else if (e.keyCode == "68") {
+                dmenu();
             }
             else if (Number(e.keyCode) >= 48 && Number(e.keyCode) <= 57) {
                 var name = "missing";

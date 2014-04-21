@@ -1,0 +1,21 @@
+.dmenu {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 15px;
+    font-size: 12px;
+    background-color: #2d2d2d;
+    color: #e5e5e5;
+    width: 100%;
+}
+.dmenu input {
+    background-color: transparent;
+    color: #e5e5e5;
+    outline: none;
+    border: none;
+    width: 300px;
+}
+.dmapp {
+    padding-left: 5px;
+    padding-right: 5px;
+}

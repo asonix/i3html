@@ -74,7 +74,7 @@ a:active {
 a:hover {
     text-decoration: underline;
 }
-.dmenu,
+.dmenuBtn,
 .instructions {
     border: none;
     outline: none;

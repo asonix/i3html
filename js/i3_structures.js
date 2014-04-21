@@ -24,10 +24,12 @@ function Site() {
     this.changews = function(ws) {
         if (typeof(this.focusws.html) != "undefined") {
             this.focusws.html.hide();
+            this.focusws.indicator.css("color","#e5e5e5");
             this.focusws.focus = false;
         }
         this.focus = "";
         this.focusws = ws;
+        this.focusws.indicator.css("color","#d64937");
         this.focusws.html.show();
         if (this.focusws.windows.length != 0) {
             for (var i = 0; i < this.focusws.windows.length; i++) {
@@ -63,7 +65,8 @@ function Workspace(name) {
         this.html = $("#"+this.name);
         this.html.height(this.height);
         this.html.width(this.width);
-        $(".bar .left").append("<span id=\""+this.name+"\">"+this.name+"</span>");
+        $(".bar .left").append("<span id=\""+this.name+"bar\">"+this.name+"</span>");
+        this.indicator = $("#"+this.name+"bar");
         this.focus = true;
         site.changews(this);
     }
@@ -71,7 +74,7 @@ function Workspace(name) {
     this.check = function() {
         if (this.focus == false && this.windows.length == 0) {
             $("#"+this.name).remove();
-            $("#"+this.name).remove();
+            $("#"+this.name+"bar").remove();
             for (var i = 0; i < site.child.length; i++) {
                 if (site.child[i] == this) {
                     site.child.splice(i,1);
@@ -86,12 +89,12 @@ function Workspace(name) {
 function Window(application) {
     this.create = function() {
         if (this.workspace.windows.length == 0) {
-            this.workspace.html.append("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
+            this.workspace.html.append("<div class=\"window\" id=\""+this.id+this.type+this.workspace.name+"\"></div>");
         }
         else {
-            site.focus.html.after("<div class=\"window\" id=\""+this.id+this.type+"\"></div>");
+            site.focus.html.after("<div class=\"window\" id=\""+this.id+this.type+this.workspace.name+"\"></div>");
         }
-        this.html = $("#"+this.id+this.type);
+        this.html = $("#"+this.id+this.type+this.workspace.name);
         this.html.append("<div class=\"appholder\"></div>");
         this.appholder = this.html.find(".appholder");
         this.appholder.css("border-color","#d64937");

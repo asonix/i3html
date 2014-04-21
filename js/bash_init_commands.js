@@ -42,3 +42,9 @@ new Command("settings", function(args,cur_win_dir,cur_win) {
     }));
     resizeAll(site.focusws);
 });
+new Command("term", function(args,cur_win_dir,cur_win) {
+    site.focusws.windows.push(new Window(function(){
+        return(new BashWindow());
+    }));
+    resizeAll(site.focusws);
+});

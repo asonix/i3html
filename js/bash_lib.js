@@ -2,6 +2,10 @@ function search(path,workingdirectory,type,cur_win_dir,cur_win) {
     if (typeof(workingdirectory) == "undefined" || typeof(workingdirectory) == "string") {
         workingdirectory = cur_win_dir;
     }
+    if (typeof(cur_win) == "undefined") {
+        cur_win = "";
+        cur_win_dir = "";
+    }
     var newpath = [];
 
     for (var i = 1; i < path.length; i++) {
@@ -100,12 +104,14 @@ function currentline(cur_win) {
 }
 
 function handleErrors(output,cur_win) {
-    if (typeof(output) == "string") {
-        cur_win.append.append(output+"</br>");
-        return(false);
-    }
-    else {
-        return(output);
+    if (typeof(cur_win) != "undefined" && cur_win != "") {
+        if (typeof(output) == "string") {
+            cur_win.append.append(output+"</br>");
+            return(false);
+        }
+        else {
+            return(output);
+        }
     }
 }
 

@@ -16,8 +16,8 @@ function Settings() {
         q.header = q.html.find(".headerbar");
         q.header.append("<span class=\"hleft\"></span>");
         q.hleft = q.header.find(".hleft");
-        q.hleft.append("<div class=\"nav\" id=\"shome\"><div>^</div></div>");
-        q.hleft.append("<div class=\"nav\" id=\"sback\"><div><</div></div>");
+        q.hleft.append("<div class=\"nav\" id=\"shome\"><div>H</div></div>");
+        q.hleft.append("<div class=\"nav\" id=\"sback\"><div>B</div></div>");
         q.home = q.hleft.find("#shome");
         q.back = q.hleft.find("#sback");
         q.home.hide();

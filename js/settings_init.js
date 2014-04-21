@@ -1,12 +1,12 @@
 function SettingsHolder() {
     this.q = [];
-    this.q.push(new AppSettings("weBASH","test1",function(){
+    this.q.push(new AppSettings("weBASH","Applications",function(){
         return(BashSettings);
     }));
-    this.q.push(new AppSettings("i3html","test2",function(){
+    this.q.push(new AppSettings("i3html","System",function(){
         return(WmSettings);
     }));
-    this.q.push(new AppSettings("settings","test3",function(){
+    this.q.push(new AppSettings("settings","Etcetera",function(){
         return(Preferences);
     }));
 
