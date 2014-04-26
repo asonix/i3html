@@ -3,6 +3,7 @@ function changeDirectory(args,cur_win_dir,cur_win) {
     if (dir != false) {
         cur_win.currentdirectory = dir;
     }
+    return(cur_win.currentdirectory);
 }
 
 function list(args,cur_win_dir,cur_win) {
@@ -29,7 +30,7 @@ function makeDirectory(args,type,cur_win_dir,cur_win) {
             for (var i = 0; i < path.length-1; i++) {
                 newpath.push(path[i]);
             }
-            dir = search(newpath,"",type,cur_win_dir,cur_win);
+            dir = search(newpath,"","folder",cur_win_dir,cur_win);
         }
         else {
             dir = cur_win_dir;
@@ -40,9 +41,10 @@ function makeDirectory(args,type,cur_win_dir,cur_win) {
         else {
             new File(path[path.length-1],dir);
         }
+        return(0)
     }
     else {
-        handleErrors("ERROR: "+path[path.length-1]+" already exists",cur_win);
+        return(handleErrors("ERROR: "+path[path.length-1]+" already exists",cur_win));
     }
 }
 
@@ -60,6 +62,7 @@ function removeDir(args,cur_win_dir,cur_win) {
     else {
         handleErrors(dir,cur_win);
     }
+    return(0);
 }
 
 function remove(args,type,cur_win_dir,cur_win) {
@@ -114,6 +117,7 @@ function remove(args,type,cur_win_dir,cur_win) {
     else {
         handleErrors(dir,cur_win);
     }
+    return(0);
 }
 
 function move(args,cur_win_dir,cur_win) {
@@ -170,6 +174,7 @@ function move(args,cur_win_dir,cur_win) {
             }
         }
     }
+    return(0);
 }
 
 function copy(args,cur_win_dir,cur_win) {
@@ -220,10 +225,11 @@ function copy(args,cur_win_dir,cur_win) {
             for (var i = 0; i < p1.contents.length; i++) {
                 var path1content = preparePath(p1.contents[i].buildpath());
                 path2arr.push(path1content[path1content.length-1]);
-                copy([path1content,path2arr,"-r"],cur_win_dir,cur_win);
+                return(copy([path1content,path2arr,"-r"],cur_win_dir,cur_win));
             }
         }
     }
+    return(0);
 }
 function help(cur_win) {
     handleErrors("This is the help dialogue.",cur_win);
@@ -239,21 +245,42 @@ function help(cur_win) {
     handleErrors("Alt+H: The next window will be opened to the right of the focused window",cur_win);
     handleErrors("Alt+Q: Close the focused window",cur_win);
     handleErrors("Alt+D: Open dmenu",cur_win);
-    handleErrors("Alt+1 through Alt+0: Switch to a new workspace",cur_win);
+    handleErrors("Alt+1 through Alt+0:  Switch to a new workspace",cur_win);
     handleErrors("",cur_win);
     handleErrors(" - Bash Commands",cur_win);
     handleErrors("",cur_win);
+    handleErrors("cat [path]: display contents of file at path",cur_win);
     handleErrors("cd, cd ~, cd /, cd .., cd [path]: Change directory",cur_win);
+    handleErrors("clear: clears the terminal",cur_win);
+    handleErrors("cp [path1] [path2], cp -r [path1] [path2]: Copy path1 to path2",cur_win);
+    handleErrors("edit [path]: INCOMPLETE edit file at path",cur_win);
+    handleErrors("help: display this help dialogue",cur_win);
+    handleErrors("ls: list files and folders in the current directory",cur_win);
     handleErrors("mkdir [path]: Make a new directory",cur_win);
     handleErrors("mv [path1] [path2]: Move path1 to path2",cur_win);
-    handleErrors("cp [path1] [path2], cp -r [path1] [path2]: Copy path1 to path2",cur_win);
-    handleErrors("touch [path]: create a file at [path]",cur_win);
-    handleErrors("ls: list files and folders in the current directory",cur_win);
     handleErrors("rm [path]: deletes a file or folder",cur_win);
     handleErrors("rmdir [path]: deletes a folder",cur_win);
-    handleErrors("clear: clears the terminal",cur_win);
     handleErrors("settings: open the settings dialogue",cur_win);
     handleErrors("term: open the terminal",cur_win);
+    handleErrors("touch [path]: create a file at [path]",cur_win);
     handleErrors("help: display this help dialogue",cur_win);
     handleErrors("",cur_win);
+    return(0);
+}
+function cat(args,cur_win_dir,cur_win) {
+    var file = handleErrors(search(preparePath(args[0]),"","file",cur_win_dir,cur_win),cur_win);
+    var contents = file.contents;
+    if (typeof(contents) != "undefined") {
+        var filecontent = "";
+        for (var i = 0; i < contents.length; i++) {
+            for (var j = 0; j < contents[i].length; j++) {
+                filecontent += contents[i][j];
+            }
+            if (i != contents.length-1) {
+                filecontent += "</br>";
+            }
+        }
+        handleErrors(filecontent,cur_win);
+    }
+    return(0);
 }

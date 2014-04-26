@@ -1,5 +1,6 @@
 function BashWindow(command) {
-    this.name = "weBASH";
+    this.taken = false;
+    this.name = "term";
     this.currentdirectory = fs.currentdir;
     var q = this;
     var r;
@@ -9,11 +10,16 @@ function BashWindow(command) {
     this.html;
     var html;
     this.focus = function() {
-        s.focus();
+        if (this.taken == false) {
+            s.focus();
+        }
+        else {
+            this.app.focus();
+        }
     }
     this.create1 = function() {
         html.html("<div class=\"bashContainer\"></div>")
-        html.find(".bashContainer").html("<div class=\"append\"></div>").css("padding",BashSettings.padding+"px").append("<div class=\"active\"></div>");
+        html.find(".bashContainer").html("<div class=\"append\"></div>").css("padding",BashSettings.padding+"px").css("font-size",BashSettings.fontsize+"px").append("<div class=\"active\"></div>");
         html.find(".active").append("<span class=\"currentdir\"></span>").append("<input autofocus type=\"text\" name=\"cmd\" class=\"input\" id=\"input\" autocomplete=\"off\" />");
         u = html.find(".active");
         r = html.find(".active").find("span");
@@ -27,10 +33,12 @@ function BashWindow(command) {
             var parsing = command.split(" ");
             u.toggle();
             t.append(currentline(q.currentdirectory)+" "+command+"</br>");
-            runCommand(parsing,q.currentdirectory,q);
-            r.html(currentline(q.currentdirectory)+" ");
-            s.val("");
-            u.toggle();
+            var ww = runCommand(parsing,q.currentdirectory,q);
+            if (typeof(ww) != "undefined") {
+                r.html(currentline(q.currentdirectory)+" ");
+                s.val("");
+                u.toggle();
+            }
         }
         s.keypress(function(key) {
             if (key.keyCode == 13) {    //'enter'
@@ -42,11 +50,18 @@ function BashWindow(command) {
                     t.append(currentline(q.currentdirectory)+" "+formInput+"</br>");
                 }
                 
-                runCommand(parsing,q.currentdirectory,q);
-                
-                r.html(currentline(q.currentdirectory)+" ");
-                s.val("");
-                u.toggle();
+                var ww = runCommand(parsing,q.currentdirectory,q);
+                if (typeof(ww) != "undefined" || q.taken == true) {
+                    r.html(currentline(q.currentdirectory)+" ");
+                    s.val("");
+                    q.interval = setInterval(function(){
+                        if (q.taken != true) {
+                            u.toggle();
+                            s.focus();
+                            clearInterval(q.interval);
+                        }
+                    },25);
+                }
             }
         });
     }

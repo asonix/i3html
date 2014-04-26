@@ -29,7 +29,7 @@ function Dir(name,container) {
 function File(name,container) {
     this.type = "file";
     this.name = name;
-    this.contents = "";
+    this.contents = [[]];
     this.container = container;
     this.container.contents.push(this);
     this.buildpath = function() {

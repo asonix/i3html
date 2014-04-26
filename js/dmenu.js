@@ -4,8 +4,15 @@ function dmenu() {
     $(".dmenu input").focus();
     $(".dmenu").mouseover(function(){
         $(".dmenu input").focus();
-        console.log("focusing");
     });
+    var inc = 0;
+    var fo = setInterval(function() {
+        if (inc > 1) {
+            $(".dmenu input").focus();
+            clearInterval(fo);
+        }
+        inc++;
+    },25);
     var workingdir = search(preparePath("/usr/bin"),"","folder");
     var q;
     var r;
@@ -23,7 +30,7 @@ function dmenu() {
         if (re2.check(q)) {
             r = q.length;
             for (var i = 0; i < workingdir.contents.length; i++) {
-                if (workingdir.contents[i].name.substring(0,r) == q) {
+                if (workingdir.contents[i].name.indexOf(q) != -1) {
                     ls += "<span class=\"dmapp\">"+workingdir.contents[i].name + "</span>";
                 }
             }
@@ -36,17 +43,18 @@ function dmenu() {
     $(".dmenu input").keydown(function(e) {
         if (e.keyCode == "13") {
             e.preventDefault();
-            if ($("#dapp").children().length != 0) {
-                runCommand([$(".dmapp:nth-child("+child+")").html()],"","");
+            if ($("#dapp").children().length > 0) {
+                runCommand([$(".dmapp:nth-child("+child+")").html()],fs.currentdir,"");
             }
             else {
                 var parsing = document.getElementById("dmenu").value.split(" ");
                 runCommand(parsing,"","");
             }
-            $(".dmenu").remove();
             clearInterval(m);
+            $(".dmenu").remove();
         }
         if (e.keyCode == "27") {
+            e.preventDefault();
             $(".dmenu").remove();
             clearInterval(m);
         }

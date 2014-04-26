@@ -8,6 +8,10 @@ function search(path,workingdirectory,type,cur_win_dir,cur_win) {
     }
     var newpath = [];
 
+    if (path.length > 1 && path[path.length-1] == "") {
+        path.splice(path.length-1,1);
+    }
+
     for (var i = 1; i < path.length; i++) {
         newpath.push(path[i]);
     }
@@ -73,7 +77,7 @@ function runCommand(args,cur_windir,cur_win) {
             return(returned);
         }
     }
-    handleErrors("ERROR: command not found.",cur_win);
+    return(handleErrors("ERROR: command not found.",cur_win));
 }
 
 function preparePath(inpath) {

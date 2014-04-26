@@ -206,7 +206,9 @@ function Window(application) {
     this.create();
     repositionAll(site.focusws,0,$(".bar").height(),this.workspace);
     this.app = application();
+    this.app.conwin = this;
     this.app.html = this.appholder;
+    this.app.id = this.id+this.workspace.name+"app";
     this.app.create();
     this.focus();
 
