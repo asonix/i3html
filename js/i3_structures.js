@@ -117,6 +117,7 @@ function Window(application) {
         if (site.focusws == this.workspace) {
             this.isfocused = false;
             this.appholder.css("border-color","#2d2d2d");
+            this.app.unfocus();
         }
     }
 

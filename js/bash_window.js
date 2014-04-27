@@ -10,7 +10,17 @@ function BashWindow(command) {
     this.html;
     var html;
     this.focus = function() {
-        s.focus();
+        if (this.taken == false) {
+            s.focus();
+        }
+        else {
+            this.app.focus();
+        }
+    }
+    this.unfocus = function() {
+        if (this.taken == true) {
+            this.app.unfocus();
+        }
     }
     this.create1 = function() {
         html.html("<div class=\"bashContainer\"></div>")

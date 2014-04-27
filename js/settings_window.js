@@ -4,6 +4,7 @@ function Settings() {
     this.html;
     var html;
     this.focus = function() {}
+    this.unfocus = function() {}
     this.create = function() {
         html = this.html;
         this.create1();

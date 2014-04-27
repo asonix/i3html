@@ -6,6 +6,13 @@ function Editor(args,cur_win_dir,cur_win) {
     var state = "bindings";
     var stop = false;
     var old;
+    var focused = true;
+    this.focus = function() {
+        focused = true;
+    }
+    this.unfocus = function() {
+        focused = false;
+    }
     this.create = function() {
         cur_win.app = this;
         cur_win.taken = true;
@@ -22,7 +29,12 @@ function Editor(args,cur_win_dir,cur_win) {
                 var filestring = "";
                 for (var i = 0; i < editor.file.contents.length; i++) {
                     for (var j = 0; j < editor.file.contents[i].length; j++) {
-                        filestring += "<span class=\"editspan\">"+editor.file.contents[i][j]+"</span>";
+                        if (j != 0 || i != 0) {
+                            filestring += "<span class=\"editspan\">"+editor.file.contents[i][j]+"</span>";
+                        }
+                        else {
+                            filestring += "<span class=\"editspanind\">"+editor.file.contents[i][j]+"</span>";
+                        }
                     }
                     if (i != editor.file.contents.length-1) {
                         filestring += "</br>";
@@ -40,10 +52,10 @@ function Editor(args,cur_win_dir,cur_win) {
             var childy = 0;
             var childxtemp = 0;
             var arr = filecontent;
-            arr[childy].push("&nbsp;");
+            arr[0].push("&nbsp;");
 
             $(window).keydown(function(key) {
-                if (stop == false) {
+                if (stop == false && focused == true) {
                     if (state == "cmd") {
                         htmlcmd.append(js2char(key.keyCode,key.shiftKey));
                         if (key.keyCode == "13") {
@@ -65,11 +77,12 @@ function Editor(args,cur_win_dir,cur_win) {
                     }
                     else if (state == "bindings") {
                         childxtemp = childx;
-                        if (arr[childy][arr[childy].length-1] == "&nbsp;") {
+                        if (arr[childy][arr[childy].length-1] == "&nbsp;" && arr[childy].length-1 != 0) {
                             arr[childy].splice(arr[childy].length-1,1);
                         }
                         if (key.shiftKey && key.keyCode == "186") { //colon
                             state = "cmd";
+                            htmlcmd.append(":");
                         }
                         if (key.keyCode == "73") { //i
                             state = "edit";
@@ -81,13 +94,13 @@ function Editor(args,cur_win_dir,cur_win) {
                             state = "edit";
                             arr[childy].push("&nbsp;");
                         }
-                        else if (key.keyCode == "72") { //h
+                        else if (key.keyCode == "72" || key.keyCode == "37") { //h or left
                             if (childx > 0) {
                                 childx--;
                                 childxtemp = childx;
                             }
                         }
-                        else if (key.keyCode == "74") { //j
+                        else if (key.keyCode == "74" || key.keyCode == "40") { //j or down
                             if (childy < arr.length-1) {
                                 childy++;
                             }
@@ -95,7 +108,7 @@ function Editor(args,cur_win_dir,cur_win) {
                                 childxtemp = arr[childy].length-1;
                             }
                         }
-                        else if (key.keyCode == "75") { //k
+                        else if (key.keyCode == "75" || key.keyCode == "38") { //k or up
                             if (childy > 0) {
                                 childy--;
                             }
@@ -103,7 +116,7 @@ function Editor(args,cur_win_dir,cur_win) {
                                 childxtemp = arr[childy].length-1;
                             }
                         }
-                        else if (key.keyCode == "76") { //l
+                        else if (key.keyCode == "76" || key.keyCode == "39") { //l or right
                             if (childx < arr[childy].length-1) {
                                 childx++;
                                 childxtemp = childx;
@@ -112,6 +125,7 @@ function Editor(args,cur_win_dir,cur_win) {
                         editor.redraw(htmlshow,arr,childxtemp,childy);
                     }
                     else if (state == "edit") {
+                        childxtemp = childx;
                         if (key.keyCode == "13") { //enter
                             var q = arr[childy].splice(childx,arr[childy].length-1);
                             arr.splice(childy+1,0,q);
@@ -128,6 +142,34 @@ function Editor(args,cur_win_dir,cur_win) {
                         else if (key.keyCode == "32") { //space bar
                             arr[childy].splice(childx,0,"&nbsp;");
                             childx++;
+                        }
+                        else if (key.keyCode == "37") { //left
+                            if (childx > 0) {
+                                childx--;
+                                childxtemp = childx;
+                            }
+                        }
+                        else if (key.keyCode == "40") { //down
+                            if (childy < arr.length-1) {
+                                childy++;
+                            }
+                            if (childx > arr[childy].length-1) {
+                                childxtemp = arr[childy].length-1;
+                            }
+                        }
+                        else if (key.keyCode == "38") { //up
+                            if (childy > 0) {
+                                childy--;
+                            }
+                            if (childx > arr[childy].length-1) {
+                                childxtemp = arr[childy].length-1;
+                            }
+                        }
+                        else if (key.keyCode == "39") { //right
+                            if (childx < arr[childy].length-1) {
+                                childx++;
+                                childxtemp = childx;
+                            }
                         }
                         else if (key.keyCode == "8") { //backspace
                             if (childx != 0) {
@@ -154,7 +196,7 @@ function Editor(args,cur_win_dir,cur_win) {
                             }
                             childx++;
                         }
-                        editor.redraw(htmlshow,arr,childx,childy);
+                        editor.redraw(htmlshow,arr,childxtemp,childy);
                     }
                 }
             });
