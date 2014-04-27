@@ -20,8 +20,6 @@ TERM:
  - Add support for more commands
  
 APPLICATIONS:
- - Text-editor
-  - ?Vim-like?
  - Photo-viewer
   - Larger preview on mouseover
  - ?Music-player?
@@ -36,16 +34,22 @@ KEYBOARD COMMANDS:
  - alt+q - remove new window
  - alt+h - next window will open to the right of the focused window
  - alt+v - next window will open below the focused window
- - alt+e - nothing - used to test things
+ - alt+d - open dmenu
+ - alt+1 through alt+0 - switch workspaces
 
 BASH COMMANDS:
+ - cat [path to file] - display contents of file
  - cd, cd.., cd .., cd ~, cd /, cd [path of folder] - change directory
- - rm [path to file or folder] - remove file, folder, or command (note: removing commands is not recommended)
- - mkdir [path] - makes a folder
- - rmdir [path to folder] - removes a folder
- - touch [path] - creates a file
- - ls - list files and folders
  - clear - clear console
- - mv [path] [path2] - move file from path to path2
  - cp [path] [path2] - copy file from path to path2
+ - dmenu\_run - open dmenu
+ - edit [path to file] - edite file
  - help - displays help dialogue
+ - ls - list files and folders
+ - mkdir [path] - makes a folder
+ - mv [path] [path2] - move file from path to path2
+ - rm [path to file or folder] - remove file, folder, or command (note: removing commands is not recommended)
+ - rmdir [path to folder] - removes a folder
+ - settings - open settings panel
+ - term - open new terminal
+ - touch [path] - creates a file

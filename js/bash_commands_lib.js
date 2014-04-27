@@ -253,6 +253,7 @@ function help(cur_win) {
     handleErrors("cd, cd ~, cd /, cd .., cd [path]: Change directory",cur_win);
     handleErrors("clear: clears the terminal",cur_win);
     handleErrors("cp [path1] [path2], cp -r [path1] [path2]: Copy path1 to path2",cur_win);
+    handleErrors("dmenu_run: open dmenu",cur_win);
     handleErrors("edit [path]: INCOMPLETE edit file at path",cur_win);
     handleErrors("help: display this help dialogue",cur_win);
     handleErrors("ls: list files and folders in the current directory",cur_win);
@@ -263,7 +264,6 @@ function help(cur_win) {
     handleErrors("settings: open the settings dialogue",cur_win);
     handleErrors("term: open the terminal",cur_win);
     handleErrors("touch [path]: create a file at [path]",cur_win);
-    handleErrors("help: display this help dialogue",cur_win);
     handleErrors("",cur_win);
     return(0);
 }
