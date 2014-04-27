@@ -54,8 +54,6 @@ new Command("cat", function(args,cur_win_dir,cur_win) {
 });
 new Command("edit", function(args,cur_win_dir,cur_win) {
     var edit = new Editor(args,cur_win_dir,cur_win);
-    edit.create();
-    edit.run();
     return(0);
 });
 new Command("exit", function(args,cur_win_dir,cur_win) {
