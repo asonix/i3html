@@ -35,9 +35,10 @@
     background-color: #d64937;
 }
 .hcenter {
-    position: relative;
+    position: absolute;
     left: 50%;
-    top: 8px;
+    top: 30px;
+    display: block;
     text-align: center;
     width: 150px;
     margin-left: -75px;
