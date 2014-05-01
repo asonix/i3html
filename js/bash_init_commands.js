@@ -71,3 +71,10 @@ new Command("dmenu_run", function(args,cur_win_dir,cur_win) {
     },25);
     return(0);
 });
+new Command("contact", function(args,cur_win_dir,cur_win) {
+    site.focusws.windows.push(new Window(function(){
+        return(new Contact());
+    }));
+    return(resizeAll(site.focusws));
+});
+

@@ -1,0 +1,37 @@
+.contactus {
+    max-width: 400px;
+    min-width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.contactus table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.contactus input,
+.contactus input:hover {
+    margin: 0px;
+    width: 100%;
+    outline: 0px;
+    border: solid 1px #999999;
+    margin-left: auto;
+    margin-right: auto;
+}
+.contactus input[type=submit] {
+    margin-left: 1px;
+}
+.contactus textarea:hover,
+.contactus input:hover {
+    border-color: #d64937;
+}
+.contactus textarea {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    border: solid 1px #999999;
+}
+.contactus textarea:focus {
+    outline: 0px;
+}
