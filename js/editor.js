@@ -76,7 +76,6 @@ function Editor(args,cur_win_dir,cur_win) {
                         }
                     }
                     else if (state == "bindings") {
-                        childxtemp = childx;
                         if (arr[childy][arr[childy].length-1] == "&nbsp;" && arr[childy].length-1 != 0) {
                             arr[childy].splice(arr[childy].length-1,1);
                         }
@@ -89,15 +88,15 @@ function Editor(args,cur_win_dir,cur_win) {
                             arr[childy].push("&nbsp;");
                         }
                         else if (key.keyCode == "65") { //a
-                            childx++;
-                            childxtemp = childx;
+                            childxtemp++;
+                            childx = childxtemp;
                             state = "edit";
                             arr[childy].push("&nbsp;");
                         }
                         else if (key.keyCode == "72" || key.keyCode == "37") { //h or left
-                            if (childx > 0) {
-                                childx--;
-                                childxtemp = childx;
+                            if (childxtemp > 0) {
+                                childxtemp--;
+                                childx = childxtemp;
                             }
                         }
                         else if (key.keyCode == "74" || key.keyCode == "40") { //j or down
@@ -107,6 +106,9 @@ function Editor(args,cur_win_dir,cur_win) {
                             if (childx > arr[childy].length-1) {
                                 childxtemp = arr[childy].length-1;
                             }
+                            else {
+                                childxtemp = childx;
+                            }
                         }
                         else if (key.keyCode == "75" || key.keyCode == "38") { //k or up
                             if (childy > 0) {
@@ -115,66 +117,94 @@ function Editor(args,cur_win_dir,cur_win) {
                             if (childx > arr[childy].length-1) {
                                 childxtemp = arr[childy].length-1;
                             }
+                            else {
+                                childxtemp = childx;
+                            }
                         }
                         else if (key.keyCode == "76" || key.keyCode == "39") { //l or right
-                            if (childx < arr[childy].length-1) {
-                                childx++;
-                                childxtemp = childx;
+                            if (childxtemp < arr[childy].length-1) {
+                                childxtemp++;
+                                childx = childxtemp;
                             }
                         }
                         editor.redraw(htmlshow,arr,childxtemp,childy);
                     }
                     else if (state == "edit") {
-                        childxtemp = childx;
                         if (key.keyCode == "13") { //enter
                             var q = arr[childy].splice(childx,arr[childy].length-1);
                             arr.splice(childy+1,0,q);
+                            if (arr[childy][arr[childy].length-1] == "&nbsp;") {
+                                arr[childy].splice(arr[childy].length-1,1);
+                            }
                             childy++;
+                            arr[childy].push("&nbsp;");
                             childx = 0;
+                            childxtemp = childx;
                         }
                         else if (key.keyCode == "27") { //escape
-                            key.preventDefault();
-                            state = "bindings";
                             if (childx > 0) {
                                 childx--;
+                                childxtemp = childx;
                             }
+                            key.preventDefault();
+                            state = "bindings";
                         }
                         else if (key.keyCode == "32") { //space bar
                             arr[childy].splice(childx,0,"&nbsp;");
                             childx++;
+                            childxtemp = childx;
                         }
                         else if (key.keyCode == "37") { //left
-                            if (childx > 0) {
-                                childx--;
-                                childxtemp = childx;
+                            if (childxtemp > 0) {
+                                childxtemp--;
+                                childx = childxtemp;
                             }
                         }
                         else if (key.keyCode == "40") { //down
                             if (childy < arr.length-1) {
+                                console.log(arr[childy][arr[childy].length-1]);
+                                if (arr[childy][arr[childy].length-1] == "&nbsp;") {
+                                    arr[childy].splice(arr[childy].length-1,1);
+                                    console.log("splicing");
+                                }
                                 childy++;
+                                arr[childy].push("&nbsp;");
                             }
                             if (childx > arr[childy].length-1) {
                                 childxtemp = arr[childy].length-1;
+                            }
+                            else {
+                                childxtemp = childx;
                             }
                         }
                         else if (key.keyCode == "38") { //up
                             if (childy > 0) {
+                                if (arr[childy][arr[childy].length-1] == "&nbsp;") {
+                                    arr[childy].splice(arr[childy].length-1,1);
+                                    console.log("splicing");
+                                }
                                 childy--;
+                                arr[childy].push("&nbsp;");
                             }
                             if (childx > arr[childy].length-1) {
                                 childxtemp = arr[childy].length-1;
                             }
-                        }
-                        else if (key.keyCode == "39") { //right
-                            if (childx < arr[childy].length-1) {
-                                childx++;
+                            else {
                                 childxtemp = childx;
                             }
                         }
+                        else if (key.keyCode == "39") { //right
+                            if (childxtemp < arr[childy].length-1) {
+                                childxtemp++;
+                                childx = childxtemp;
+                            }
+                        }
                         else if (key.keyCode == "8") { //backspace
-                            if (childx != 0) {
-                                arr[childy].splice(childx-1,1);
-                                childx--;
+                            key.preventDefault();
+                            if (childxtemp != 0) {
+                                arr[childy].splice(childxtemp-1,1);
+                                childxtemp--;
+                                childx = childxtemp;
                             }
                             else {
                                 if (childy != 0) {
@@ -184,6 +214,7 @@ function Editor(args,cur_win_dir,cur_win) {
                                     arr.splice(childy,1);
                                     childy--;
                                     childx = arr[childy].length-1;
+                                    childxtemp = childx;
                                 }
                             }
                         }
@@ -195,6 +226,7 @@ function Editor(args,cur_win_dir,cur_win) {
                                 arr[childy].splice(childx,0,js2char(key.keyCode,false));
                             }
                             childx++;
+                            childxtemp = childx;
                         }
                         editor.redraw(htmlshow,arr,childxtemp,childy);
                     }

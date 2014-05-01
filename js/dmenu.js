@@ -17,11 +17,15 @@ function dmenu() {
     var q;
     var r;
     var child = 1;
-    var ls;
+    var lsarr = [];
+    var lsstrhigh;
+    var lsstrlow;
     var re1 = new RisingEdge();
     var re2 = new RisingEdge();
     var m = setInterval(function() {
-        ls = "";
+        lsstrhigh = "";
+        lsstrlow = "";
+        lsarr = [];
         if (re1.check(child)) {
             $(".dmapp").css("background-color","transparent");
             $(".dmapp:nth-child("+child+")").css("background-color","#d64937");
@@ -31,10 +35,19 @@ function dmenu() {
             r = q.length;
             for (var i = 0; i < workingdir.contents.length; i++) {
                 if (workingdir.contents[i].name.indexOf(q) != -1) {
-                    ls += "<span class=\"dmapp\">"+workingdir.contents[i].name + "</span>";
+                    lsarr.push(workingdir.contents[i].name);
                 }
             }
-            $("#dapp").html(ls);
+            lsarr.sort();
+            for (var i = 0; i < lsarr.length; i++) {
+                if (lsarr[i].indexOf(q) == 0) {
+                    lsstrhigh += "<span class=\"dmapp\">"+lsarr[i]+"</span>";
+                }
+                else if (lsarr[i].indexOf(q) != -1) {
+                    lsstrlow += "<span class=\"dmapp\">"+lsarr[i]+"</span>";
+                }
+            }
+            $("#dapp").html(lsstrhigh+lsstrlow);
             child = 1;
             $(".dmapp").css("background-color","transparent");
             $(".dmapp:nth-child("+child+")").css("background-color","#d64937");
