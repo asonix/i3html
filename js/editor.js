@@ -162,10 +162,8 @@ function Editor(args,cur_win_dir,cur_win) {
                         }
                         else if (key.keyCode == "40") { //down
                             if (childy < arr.length-1) {
-                                console.log(arr[childy][arr[childy].length-1]);
                                 if (arr[childy][arr[childy].length-1] == "&nbsp;") {
                                     arr[childy].splice(arr[childy].length-1,1);
-                                    console.log("splicing");
                                 }
                                 childy++;
                                 arr[childy].push("&nbsp;");
@@ -181,7 +179,6 @@ function Editor(args,cur_win_dir,cur_win) {
                             if (childy > 0) {
                                 if (arr[childy][arr[childy].length-1] == "&nbsp;") {
                                     arr[childy].splice(arr[childy].length-1,1);
-                                    console.log("splicing");
                                 }
                                 childy--;
                                 arr[childy].push("&nbsp;");

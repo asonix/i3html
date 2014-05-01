@@ -7,13 +7,14 @@
     background-color: #2d2d2d;
     color: #e5e5e5;
     width: 100%;
+    white-space: nowrap;
 }
 .dmenu input {
     background-color: transparent;
     color: #e5e5e5;
     outline: none;
     border: none;
-    width: 300px;
+    width: 250px;
 }
 .dmapp {
     padding-left: 5px;
