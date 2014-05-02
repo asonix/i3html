@@ -88,12 +88,18 @@ function Editor(args,cur_win_dir,cur_win) {
                             arr[childy].push("&nbsp;");
                         }
                         else if (key.keyCode == "65") { //a
-                            childxtemp++;
-                            childx = childxtemp;
                             state = "edit";
-                            arr[childy].push("&nbsp;");
+                            if (arr[childy][0] != "&nbsp;") {
+                                childxtemp++;
+                                arr[childy].push("&nbsp;");
+                            }
+                            else if (arr[childy].length != 1) {
+                                childxtemp++;
+                                arr[childy].push("&nbsp;");
+                            }
+                            childx = childxtemp;
                         }
-                        else if (key.keyCode == "72" || key.keyCode == "37") { //h or left
+                        else if (key.keyCode == "72" || key.keyCode == "37" || key.keyCode == "8") { //h or left or backspace
                             if (childxtemp > 0) {
                                 childxtemp--;
                                 childx = childxtemp;
@@ -102,6 +108,9 @@ function Editor(args,cur_win_dir,cur_win) {
                         else if (key.keyCode == "74" || key.keyCode == "40") { //j or down
                             if (childy < arr.length-1) {
                                 childy++;
+                                if (arr[childy].length == 0) {
+                                    arr[childy].push("&nbsp;");
+                                }
                             }
                             if (childx > arr[childy].length-1) {
                                 childxtemp = arr[childy].length-1;
@@ -113,6 +122,9 @@ function Editor(args,cur_win_dir,cur_win) {
                         else if (key.keyCode == "75" || key.keyCode == "38") { //k or up
                             if (childy > 0) {
                                 childy--;
+                                if (arr[childy].length == 0) {
+                                    arr[childy].push("&nbsp;");
+                                }
                             }
                             if (childx > arr[childy].length-1) {
                                 childxtemp = arr[childy].length-1;
@@ -121,7 +133,7 @@ function Editor(args,cur_win_dir,cur_win) {
                                 childxtemp = childx;
                             }
                         }
-                        else if (key.keyCode == "76" || key.keyCode == "39") { //l or right
+                        else if (key.keyCode == "76" || key.keyCode == "39" || key.keyCode == "32") { //l or right or space
                             if (childxtemp < arr[childy].length-1) {
                                 childxtemp++;
                                 childx = childxtemp;
@@ -173,7 +185,7 @@ function Editor(args,cur_win_dir,cur_win) {
                             }
                             else {
                                 childxtemp = childx;
-                            }
+                           }
                         }
                         else if (key.keyCode == "38") { //up
                             if (childy > 0) {

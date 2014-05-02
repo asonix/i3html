@@ -19,6 +19,9 @@
     margin-left: auto;
     margin-right: auto;
 }
+.contactus input[type=text] {
+    background-color: #f9f9f9;
+}
 .contactus input[type=submit] {
     margin-left: 1px;
     background-color: #e5e5e5;
@@ -35,8 +38,20 @@
     padding: 0px;
     margin: 0px;
     height: 100%;
+    background-color: #f9f9f9;
     border: solid 1px #999999;
 }
 .contactus textarea:focus {
     outline: 0px;
+}
+.error .thankyou {
+    width: 60%;
+    max-width: 400px;
+    min-width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+    border: #999999 solid 1px;
+    padding: 5px;
 }
