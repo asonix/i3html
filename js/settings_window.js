@@ -23,6 +23,7 @@ function Settings() {
         q.back = q.hleft.find("#sback");
         q.home.hide();
         q.header.append("<span class=\"hcenter\">Settings</span>");
+        $(".hcenter").css("top",WmSettings.inset+9+WmSettings.border+"px");
         q.hcenter = q.header.find(".hcenter");
         q.header.append("<span class=\"hright\"></span>");
         q.hright = q.header.find(".hright");

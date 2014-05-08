@@ -1,0 +1,25 @@
+.imageicon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-size: cover;
+    margin-left: auto;
+    margin-right: auto;
+}
+.imagetitle {
+    margin-top: 10px;
+    width: 100%;
+}
+.imagebutton {
+    text-align: center;
+    background-color: inherit;
+    border-radius: 5px;
+    width: 150px;
+    margin-top: 20px;
+    margin-left: 10px;
+    float: left;
+    padding: 10px;
+}
+.imagebutton:hover {
+    background-color: #999999;
+}
