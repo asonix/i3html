@@ -44,7 +44,6 @@ var WmSettings = new function() {
                 for (var i = 0; i < site.child.length; i++) {
                     resizeAll(site.child[i]);
                 }
-                $(".hcenter").css("top",m.inset+9+m.border+"px");
             }
             if (re3.check(m.fontsize)) {
                 $(".bar").css("font-size",m.fontsize+"px");

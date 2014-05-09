@@ -18,7 +18,7 @@ function Contact() {
         q.header.append("<span class=\"hleft\"><div style=\"width: 24px; height: 24px;\"></div></span>");
         q.header.append("<span class=\"hcenter\">Contact</span>");
         q.hcenter = q.header.find(".hcenter");
-        $(".hcenter").css("top",WmSettings.inset+9+WmSettings.border+"px");
+        $(".hcenter").css("top","9px");
 
         q.html.append("<div class=\"content\"></div>");
         q.content = q.html.find(".content");

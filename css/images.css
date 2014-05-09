@@ -23,3 +23,68 @@
 .imagebutton:hover {
     background-color: #999999;
 }
+.fullimage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #2d2d2d;
+    text-align: center;
+}
+.fullimage img {
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+}
+.imageside {
+    position: absolute;
+    background-color: rgba(48,48,48,0.3);
+    height: 100%;
+    width: 60px;
+    top: 0px;
+}
+.imageleft,
+.imageright,
+.imageclose {
+    width: 40px;
+    height: 40px;
+    margin: 0px;
+    margin-top: -20px;
+    position: absolute;
+    color: #e5e5e5;
+    text-shadow: #000000 0px 0px 6px;
+    text-align: center;
+    padding: 0px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.imageleft {
+    top: 50%;
+    left: 10px;
+}
+.imageright {
+    top: 50%;
+    right: 10px;
+}
+.imageclose {
+    top: 33px;
+    right: 17px;
+    color: #e5e5e5;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 15px;
+    text-shadow: 0px 0px 0px;
+    box-shadow: #000000 0px 0px 6px;
+    background-color: #d64937;
+}
+.close {
+    margin-top: -1px;
+    margin-left: -1px;
+}

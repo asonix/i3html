@@ -41,6 +41,7 @@
         <link href="css/dmenu.css"                                          type="text/css" rel="stylesheet"/>
         <link href="css/settings.css"                                       type="text/css" rel="stylesheet"/>
         <link href="css/contact.css"                                        type="text/css" rel="stylesheet"/>
+        <link href="css/images.css"                                         type="text/css" rel="stylesheet"/>
     </head>
     
     <body>
@@ -50,9 +51,6 @@
                 <span class="time"></span>
             </span>
         </div>
-        <?php
-            $variable = 'string';
-        ?>
         <div class="page"></div>
         <div id="github">
             <span class="github" style="text-align: center">
