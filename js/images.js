@@ -103,6 +103,8 @@ function images(html,browser) {
                             else {
                                 iterator--;
                             }
+                            html.find(".fullimage").find("img").remove();
+                            html.find(".fullimage").prepend("<img src=\"img/"+imagesurl[iterator]+"\" />");
                         }
                         else if (key.keyCode == "76" || key.keyCode == "39" || key.keyCode == "32") { //l or right or space
                             if (iterator == imagesurl.length-1) {
@@ -111,9 +113,13 @@ function images(html,browser) {
                             else {
                                 iterator++;
                             }
+                            html.find(".fullimage").find("img").remove();
+                            html.find(".fullimage").prepend("<img src=\"img/"+imagesurl[iterator]+"\" />");
                         }
-                        html.find(".fullimage").find("img").remove();
-                        html.find(".fullimage").prepend("<img src=\"img/"+imagesurl[iterator]+"\" />");
+                        else if (key.keyCode == "81") {
+                            html.find(".fullimage").remove();
+                            clearInterval(inter);
+                        }
                     }
                 });
                 html.find(".imageleft").click(function() {
