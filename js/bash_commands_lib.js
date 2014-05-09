@@ -243,6 +243,7 @@ function help(cur_win) {
     handleErrors("Alt+Enter: Opens a terminal window",cur_win);
     handleErrors("Alt+V: The next window will be opened beneath the focused window",cur_win);
     handleErrors("Alt+H: The next window will be opened to the right of the focused window",cur_win);
+    handleErrors("Alt+F: Make the current window fullscreen",cur_win);
     handleErrors("Alt+Q: Close the focused window",cur_win);
     handleErrors("Alt+D: Open dmenu",cur_win);
     handleErrors("Alt+1 through Alt+0:  Switch to a new workspace",cur_win);
@@ -252,10 +253,13 @@ function help(cur_win) {
     handleErrors("cat [path]: display contents of file at path",cur_win);
     handleErrors("cd, cd ~, cd /, cd .., cd [path]: Change directory",cur_win);
     handleErrors("clear: clears the terminal",cur_win);
+    handleErrors("contact: contact the site designer",cur_win);
     handleErrors("cp [path1] [path2], cp -r [path1] [path2]: Copy path1 to path2",cur_win);
     handleErrors("dmenu_run: open dmenu",cur_win);
     handleErrors("edit [path]: INCOMPLETE edit file at path",cur_win);
+    handleErrors("exit: close the current terminal window",cur_win);
     handleErrors("help: display this help dialogue",cur_win);
+    handleErrors("images: open the image browser",cur_win);
     handleErrors("ls: list files and folders in the current directory",cur_win);
     handleErrors("mkdir [path]: Make a new directory",cur_win);
     handleErrors("mv [path1] [path2]: Move path1 to path2",cur_win);
