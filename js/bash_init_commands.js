@@ -83,4 +83,10 @@ new Command("images", function(args,cur_win_dir,cur_win) {
     }));
     return(resizeAll(site.focusws));
 });
+new Command("chat", function(args,cur_win_dir,cur_win) {
+    site.focusws.windows.push(new Window(function(){
+        return(new Chat());
+    }));
+    return(resizeAll(site.focusws));
+});
 

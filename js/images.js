@@ -4,6 +4,9 @@ function ImageBrowser() {
     this.html;
     var html;
     this.focused = false;
+    this.kill = function() {
+        q.done = true;
+    }
     this.focus = function() {
         this.focused = true;
     }

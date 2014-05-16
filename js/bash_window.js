@@ -3,6 +3,9 @@ function BashWindow(command) {
     this.name = "term";
     this.currentdirectory = fs.currentdir;
     var q = this;
+    this.kill = function() {
+        q.done = true;
+    }
     var r;
     var s;
     var t;

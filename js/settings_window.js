@@ -5,6 +5,9 @@ function Settings() {
     var html;
     this.focus = function() {}
     this.unfocus = function() {}
+    this.kill = function() {
+        q.done = true;
+    }
     this.create = function() {
         html = this.html;
         this.create1();

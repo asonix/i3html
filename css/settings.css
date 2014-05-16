@@ -78,6 +78,9 @@
     width: 100%;
     overflow-y: auto;
 }
+.contentScrolling {
+    min-height: 100%;
+}
 .category {
     clear: both;
     width: 100%;

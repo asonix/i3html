@@ -10,6 +10,7 @@
         
         <!--Self-written Code-->
         <script src="js/images.js"              type="text/javascript"></script>
+        <script src="js/chat.js"                type="text/javascript"></script>
         <script src="js/contact.js"             type="text/javascript"></script>
 
         <script src="js/risingEdge.js"          type="text/javascript"></script>

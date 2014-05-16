@@ -122,67 +122,73 @@ function Window(application) {
     }
 
     this.kill = function() {
-        if (this.child.length != 0) {
-            for (var i = 0; i < this.child.length; i++) {
-                if (i == 0) {
-                    this.child[i].parent = this.parent;
-                    this.parent.child.push(this.child[i]);
+        var inter = setInterval(function() {
+            currentwindow.app.kill();
+            if (currentwindow.app.done == true) {
+                if (currentwindow.child.length != 0) {
+                    for (var i = 0; i < currentwindow.child.length; i++) {
+                        if (i == 0) {
+                            currentwindow.child[i].parent = currentwindow.parent;
+                            currentwindow.parent.child.push(currentwindow.child[i]);
+                        }
+                        else {
+                            currentwindow.child[0].child.push(currentwindow.child[i]);
+                            currentwindow.child[i].parent = currentwindow.child[0];
+                        }
+                    }
                 }
                 else {
-                    this.child[0].child.push(this.child[i]);
-                    this.child[i].parent = this.child[0];
+                    var includeparent = -1;
+                    if (currentwindow.parent.type == "window") {
+                        includeparent = 0;
+                        if (currentwindow.direction == "right") {
+                            currentwindow.parent.width += currentwindow.width/currentwindow.parent.child.length;
+                        }
+                        else {
+                            currentwindow.parent.height += currentwindow.height/currentwindow.parent.child.length;
+                        }
+                    }
+                    for (var i = 0; i < currentwindow.parent.child.length; i++) {
+                        if (currentwindow.direction == "right") {
+                            currentwindow.parent.child[i].width += currentwindow.width/(currentwindow.parent.child.length+includeparent);
+                        }
+                        else {
+                            currentwindow.parent.child[i].height += currentwindow.height/(currentwindow.parent.child.length+includeparent);
+                        }
+                    }
                 }
-            }
-        }
-        else {
-            var includeparent = -1;
-            if (this.parent.type == "window") {
-                includeparent = 0;
-                if (this.direction == "right") {
-                    this.parent.width += this.width/this.parent.child.length;
+                for (var i = 0; i < currentwindow.parent.child.length; i++) {
+                    if (currentwindow.parent.child[i] == currentwindow) {
+                        currentwindow.parent.child.splice(i,1);
+                    }
                 }
-                else {
-                    this.parent.height += this.height/this.parent.child.length;
+                for (var i = 0; i < currentwindow.workspace.windows.length; i++) {
+                    if (currentwindow.workspace.windows[i] == currentwindow) {
+                        currentwindow.workspace.windows.splice(i,1);
+                    }
                 }
-            }
-            for (var i = 0; i < this.parent.child.length; i++) {
-                if (this.direction == "right") {
-                    this.parent.child[i].width += this.width/(this.parent.child.length+includeparent);
+                currentwindow.html.remove();
+                if (currentwindow.child.length != 0) {
+                    currentwindow.child[0].focus();
                 }
-                else {
-                    this.parent.child[i].height += this.height/(this.parent.child.length+includeparent);
+                else if (currentwindow.child.length == 0) {
+                    if (currentwindow.parent.child.length != 0) {
+                        if (currentwindow.parent.child.length >= currentwindow.id) {
+                            currentwindow.parent.child[currentwindow.id-1].focus();
+                        }
+                        else {
+                            currentwindow.parent.child[currentwindow.parent.child.length-1].focus();
+                        }
+                    }
+                    else if (currentwindow.parent.type != "workspace") {
+                        currentwindow.parent.focus();
+                    }
                 }
+                resizeAll(currentwindow.workspace);
+                repositionAll(site.focusws,0,$(".bar").height(),currentwindow.workspace);
+                clearInterval(inter);
             }
-        }
-        for (var i = 0; i < this.parent.child.length; i++) {
-            if (this.parent.child[i] == this) {
-                this.parent.child.splice(i,1);
-            }
-        }
-        for (var i = 0; i < this.workspace.windows.length; i++) {
-            if (this.workspace.windows[i] == this) {
-                this.workspace.windows.splice(i,1);
-            }
-        }
-        this.html.remove();
-        if (this.child.length != 0) {
-            this.child[0].focus();
-        }
-        else if (this.child.length == 0) {
-            if (this.parent.child.length != 0) {
-                if (this.parent.child.length >= this.id) {
-                    this.parent.child[this.id-1].focus();
-                }
-                else {
-                    this.parent.child[this.parent.child.length-1].focus();
-                }
-            }
-            else if (this.parent.type != "workspace") {
-                this.parent.focus();
-            }
-        }
-        resizeAll(this.workspace);
-        repositionAll(site.focusws,0,$(".bar").height(),this.workspace);
+        },25);
     }
     
     assignParent(this);
@@ -209,6 +215,7 @@ function Window(application) {
     repositionAll(site.focusws,0,$(".bar").height(),this.workspace);
     this.app = application();
     this.app.conwin = this;
+    this.app.done = false;
     this.app.html = this.appholder;
     this.app.id = this.id+this.workspace.name+"app";
     this.app.create();
@@ -226,7 +233,6 @@ function Window(application) {
         currentwindow.focus();
     });
     $(window).keydown(function(key) {
-        console.log(currentwindow.isfocused);
         if (currentwindow.isfocused) {
             if (key.altKey && key.keyCode == "70") {
                 if (currentwindow.fullscreen == false) {
