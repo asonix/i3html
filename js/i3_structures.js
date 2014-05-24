@@ -222,13 +222,19 @@ function Window(application) {
     this.focus();
 
     var currentwindow = this;
-    var border;
+    var border = function() {
+        this.color = 0;
+        this.width = 0;
+    }
     var size = function() {
         this.width = 0;
         this.height = 0;
     }
     var zindex;
-    var margins;
+    var margins = function() {
+        this.left = 0;
+        this.height = 0;
+    }
     this.appholder.mouseover(function() {
         currentwindow.focus();
     });
@@ -238,15 +244,17 @@ function Window(application) {
                 if (currentwindow.fullscreen == false) {
                     currentwindow.fullscreen = true;
                     zindex = currentwindow.appholder.css("z-index");
-                    border = currentwindow.appholder.css("border");
+                    border.color = currentwindow.appholder.css("border-top-color");
+                    border.width = currentwindow.appholder.css("border");
                     size.width = currentwindow.appholder.css("width");
                     size.height = currentwindow.appholder.css("height");
-                    margins = currentwindow.appholder.css("margin");
+                    margins.left = currentwindow.appholder.css("margin-left");
+                    margins.top = currentwindow.appholder.css("margin-top");
                     currentwindow.appholder.css("border","0px").css("position","fixed").css("top","0px").css("left","0px").css("width","100%").css("height","100%").css("margin","0px").css("z-index","5");
                 }
                 else {
                     currentwindow.fullscreen = false;
-                    currentwindow.appholder.css("border",border).css("position","relative").css("top","0px").css("left","0px").css("width",size.width).css("height",size.height).css("margin",margins).css("z-index",zindex);
+                    currentwindow.appholder.css("border",border.width).css("border-color",border.color).css("position","relative").css("top","0px").css("left","0px").css("width",size.width).css("height",size.height).css("margin-top",margins.top).css("margin-left",margins.left).css("z-index",zindex);
                 }
             }
         }

@@ -1,5 +1,6 @@
 function BashWindow(command) {
     this.taken = false;
+    this.text = "";
     this.name = "term";
     this.currentdirectory = fs.currentdir;
     var q = this;

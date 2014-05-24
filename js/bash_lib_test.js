@@ -111,7 +111,6 @@ function handleErrors(output,cur_win) {
     if (typeof(cur_win) != "undefined" && cur_win != "") {
         if (typeof(output) == "string") {
             cur_win.append.append(output+"</br>");
-            cur_win.text += output+"\n";
             return(false);
         }
         else {

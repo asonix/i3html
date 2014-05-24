@@ -47,10 +47,9 @@ body {
     border-color: #444444;
     border-style: solid;
     margin: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
     box-shadow: 5px 5px 20px #2d2d2d;
     z-index: 1;
+    overflow: hidden;
 }
 #github {
     position: fixed;

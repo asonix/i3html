@@ -89,4 +89,11 @@ new Command("chat", function(args,cur_win_dir,cur_win) {
     }));
     return(resizeAll(site.focusws));
 });
+new Command("termtest", function(args,cur_win_dir,cur_win) {
+    site.focusws.windows.push(new Window(function(){
+        var command = args.join(" ");
+        return(new BashWindowTest(command));
+    }));
+    return(resizeAll(site.focusws));
+});
 
