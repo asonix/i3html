@@ -3,35 +3,85 @@ function BashWindowTest(command) {
     this.taken = false;
     this.name = "term";
     this.currentdirectory = fs.currentdir;
+    this.append;
+    this.focused;
+    this.html;
+    this.text = "";
     var q = this;
+    var r;
+    var t;
+    var u;
+    var scrollmod = 2;
+    var html;
+    this.focus = function() {
+        q.focused = true;
+        if (this.taken == false) {
+        }
+        else {
+            this.app.focus();
+        }
+    }
+    this.unfocus = function() {
+        q.focused = false;
+        if (this.taken == true) {
+            this.app.unfocus();
+        }
+    }
     this.kill = function() {
         for (var i = 0; i < q.processes.length; i++) {
             clearInterval(q.processes[i]);
         }
         q.done = true;
     }
-    var r;
-    var t;
-    var u;
-    this.html;
-    var scrollmod = 2;
-    var html;
-    this.text = "abcdefghijklmnopqrstuvwxyz this is a test of a really long line I hope it works well. I'm really not sure what will happen here. Whoop de doop de doop de doo. long lines of text are my friend and I really like them. Hell yeah.\n    abcdefghijklmnopqrstuvwxyz\n        zyxwvutsrqponmlkjihgfedcba\n\nThis was a triumph\n";
-    this.text += "I'm making a note here: HUGE SUCCESS\nIts hard to overstate my satisfaction\n\nAperature Science\nWe do what we must because we can\nFor the good of all of us\nExcept the ones who are dead\n\nBut there's no sense crying over every mistake";
-    this.text += "\nYou just keep on trying 'till you run out of cake\nAnd the science gets done\nAnd you make a neat gun\nFor the people who are still alive\nAnother\nFew\nLines\nFor\nTesting\nThings\nPlease\nThanks";
-    test = test.split("\n");
-    this.focus = function() {
-    }
-    this.unfocus = function() {
+    this.input = function() {
+        var num = 0;
+        var cmd = "";
+        $(window).keydown(function(key) {
+            if (!key.ctrlKey && !key.altKey) {
+                key.preventDefault();
+                shift = key.shiftKey;
+                if (q.focused) {
+                    if (key.keyCode == "13") {
+                        var parsing = cmd.split(" ");
+                        cmd = "";
+                        num = 0;
+                        q.text += "\n";
+                        var ww = runCommand(parsing,q.currentdirectory,q);
+                        if (typeof(ww) != "undefined" || q.taken == true) {
+                            var mm = setInterval(function() {
+                                if (q.taken != true) {
+                                    q.text += currentline(q.currentdirectory)+" ";
+                                    clearInterval(mm);
+                                }
+                            },25);
+                            q.processes.push(mm);
+                        }
+                    }
+                    else if (key.keyCode == "8" && num > 0) {
+                        num--;
+                        cmd = cmd.substring(0,cmd.length-1);
+                        q.text = q.text.substring(0,q.text.length-1);
+                    }
+                    else {
+                        num++;
+                        cmd += js2char(key.keyCode,shift);
+                        q.text += js2char(key.keyCode,shift);
+                    }
+                }
+            }
+        });
     }
     this.create = function() {
         html = q.html;
-        html.html("<div class=\"bashContainer\"></div>")
+        html.html("<div class=\"bashContainer\"></div>");
+        html.append("<div class=\"append\" style=\"display: none\"></div>");
+        q.append = html.find(".append");
         html.find(".bashContainer").html("<div class=\"termtest\"></div>");
         var tt = html.find(".termtest").css("font-size",BashSettings.fontsize+"px").css("padding",BashSettings.padding+"px");
         var re1 = new RisingEdge();
         var re2 = new RisingEdge();
         var re3 = new RisingEdge();
+        var re4 = new RisingEdge();
 
         var direction = 0;
         var wheelactive = 0;
@@ -40,7 +90,18 @@ function BashWindowTest(command) {
             direction = scrollmod*delta/Math.abs(delta);
             wheelactive++;
         });
+        q.text = currentline(q.currentdirectory)+" ";
+        if (typeof(command) != "undefined" && command != "") {
+            var parsing = command.split(" ");
+            q.text += command+"\n";
+            var ww = runCommand(parsing,q.currentdirectory,q);
+            if (typeof(ww) != "undefined") {
+                q.text += currentline(q.currentdirectory)+" ";
+            }
+        }
+        q.input();
         q.processes.push(setInterval(function() {
+            var test = q.text.split("\n");
             for (var i = 0; i < test.length; i++) {
                 test[i] = test[i].split("");
                 for (var j = 0; j < test[i].length; j++) {
@@ -50,7 +111,7 @@ function BashWindowTest(command) {
                 }
             }
             var wheel = re2.check(wheelactive);
-            if (re1.check(html.width()+html.height()) || wheel) {
+            if (re1.check(html.width()+html.height()) || wheel || re4.check(test)) {
                 
                 var numspansx = (tt.width() - 2 * BashSettings.padding - (tt.width()  - 2 * BashSettings.padding) %  7) /  7;
                 var numspansy = (tt.height()- 2 * BashSettings.padding - (tt.height() - 2 * BashSettings.padding) % 15) / 15;

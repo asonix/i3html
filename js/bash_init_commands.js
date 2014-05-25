@@ -13,10 +13,11 @@ new Command("mkdir", function(args,cur_win_dir,cur_win) {
     return(makeDirectory([args],"folder",cur_win_dir,cur_win));
 });
 new Command("ls", function(args,cur_win_dir,cur_win) {
-    return(cur_win.append.append(list(args,cur_win_dir,cur_win)));
+    return(list(args,cur_win_dir,cur_win));
 });
 new Command("clear", function(args,cur_win_dir,cur_win) {
-    return(cur_win.append.html(""));
+    cur_win.text = "";
+    return(1);
 });
 new Command("rmdir", function(args,cur_win_dir,cur_win) {
     return(removeDir(args,cur_win_dir,cur_win));

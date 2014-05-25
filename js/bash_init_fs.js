@@ -42,6 +42,6 @@ makeDirectory([["home","riley","Pictures"]],"folder",fs.currentdir,none);
 makeDirectory([["home","riley","Videos"]],"folder",fs.currentdir,none);
 
 makeDirectory([["home","riley","hi"]],"file",fs.currentdir,none);
-search(preparePath("/home/riley/hi"),"","file",fs.currentdir,none).contents = [["q","q","q","q","q"],["q","q","q","q"],["q","q","q"],["q","q"],["q"]];
+search(preparePath("/home/riley/hi"),"","file",fs.currentdir,none).contents = "qqqqq\nqqqq\nqqq\nqq\nq";
 
 fs.currentdir = fs.userdir;

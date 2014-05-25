@@ -98,7 +98,7 @@ function conversion(key,shift) {
             return(56);
         }
     }
-    else if (key == "187") {
+    else if (key == "187" || key == "61") {
         if (shift) {
             return(43);
         }
@@ -114,7 +114,7 @@ function conversion(key,shift) {
             return(44);
         }
     }
-    else if (key == "189") {
+    else if (key == "189" || key == "173") {
         if (shift) {
             return(95);
         }
@@ -138,7 +138,7 @@ function conversion(key,shift) {
             return(47);
         }
     }
-    else if (key == "186") {
+    else if (key == "186" || key == "59") {
         if (shift) {
             return(58);
         }

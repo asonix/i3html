@@ -7,6 +7,7 @@
         <!--Borrowed Code-->
         <script src="js/jquery-2.0.3.js"        type="text/javascript"></script>
         <script src="js/suppressBackspace.js"   type="text/javascript"></script>
+        <script src="js/jquery.mousewheel.js"   type="text/javascript"></script>
         
         <!--Self-written Code-->
         <script src="js/images.js"              type="text/javascript"></script>
@@ -22,6 +23,7 @@
         <script src="js/bash_lib.js"            type="text/javascript"></script>
         <script src="js/bash_commands_lib.js"   type="text/javascript"></script>
         <script src="js/bash_window.js"         type="text/javascript"></script>
+        <script src="js/bash_window_test.js"    type="text/javascript"></script>
         <script src="js/bash_init_fs.js"        type="text/javascript"></script>
         <script src="js/bash_init_commands.js"  type="text/javascript"></script>
 

@@ -11,7 +11,7 @@ function list(args,cur_win_dir,cur_win) {
     for (var i = 0; i < cur_win_dir.contents.length; i++) {
         lsarray.push(cur_win_dir.contents[i].name);
     }
-    return(lsarray.sort().join(" ")+"</br>");
+    return(handleErrors(lsarray.sort().join(" "),cur_win));
 }
 
 function makeDirectory(args,type,cur_win_dir,cur_win) {
@@ -275,16 +275,7 @@ function cat(args,cur_win_dir,cur_win) {
     var file = handleErrors(search(preparePath(args[0]),"","file",cur_win_dir,cur_win),cur_win);
     var contents = file.contents;
     if (typeof(contents) != "undefined") {
-        var filecontent = "";
-        for (var i = 0; i < contents.length; i++) {
-            for (var j = 0; j < contents[i].length; j++) {
-                filecontent += contents[i][j];
-            }
-            if (i != contents.length-1) {
-                filecontent += "</br>";
-            }
-        }
-        handleErrors(filecontent,cur_win);
+        handleErrors(contents,cur_win);
     }
     return(0);
 }
