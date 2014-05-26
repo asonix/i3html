@@ -17,6 +17,7 @@ new Command("ls", function(args,cur_win_dir,cur_win) {
 });
 new Command("clear", function(args,cur_win_dir,cur_win) {
     cur_win.text = "";
+    cur_win.append.html("");
     return(1);
 });
 new Command("rmdir", function(args,cur_win_dir,cur_win) {

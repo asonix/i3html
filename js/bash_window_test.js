@@ -7,6 +7,8 @@ function BashWindowTest(command) {
     this.focused;
     this.html;
     this.text = "";
+    this.temp = "";
+    this.available = true;
     var q = this;
     var r;
     var t;
@@ -37,12 +39,18 @@ function BashWindowTest(command) {
         var num = 0;
         var cmd = "";
         $(window).keydown(function(key) {
-            if (!key.ctrlKey && !key.altKey) {
+            if (!key.ctrlKey && !key.altKey && q.available == true && q.focused == true) {
                 key.preventDefault();
                 shift = key.shiftKey;
                 if (q.focused) {
-                    if (key.keyCode == "13") {
+                    if (key.keyCode == "13") {  //enter
+                        q.available = false;
                         var parsing = cmd.split(" ");
+                        for (var i = 0; i < parsing.length; i++) {
+                            if (parsing[i] == "" || parsing[i].charCodeAt(0) == 0) {
+                                parsing.splice(i,1);
+                            }
+                        }
                         cmd = "";
                         num = 0;
                         q.text += "\n";
@@ -50,22 +58,40 @@ function BashWindowTest(command) {
                         if (typeof(ww) != "undefined" || q.taken == true) {
                             var mm = setInterval(function() {
                                 if (q.taken != true) {
+                                    q.available = true;
                                     q.text += currentline(q.currentdirectory)+" ";
+                                    q.temp = q.text;
+                                    q.append.html("");
                                     clearInterval(mm);
                                 }
                             },25);
                             q.processes.push(mm);
                         }
                     }
-                    else if (key.keyCode == "8" && num > 0) {
+                    else if (key.keyCode == "8" && num > -1) { //backspace
+                        var cmda = cmd.split("");
+                        for (var i = 0; i < cmda.length; i++) {
+                            if (cmda[i] == "" || cmda[i].charCodeAt(0) == 0) {
+                                cmda.splice(i,1);
+                            }
+                        }
                         num--;
-                        cmd = cmd.substring(0,cmd.length-1);
-                        q.text = q.text.substring(0,q.text.length-1);
+                        cmda.splice(num,1);
+                        cmd = cmda.join("");
+                        q.text = q.temp + cmd;
+                    }
+                    else if (key.keyCode == "37" && num > 0) { //left
+                        num--;
+                    }
+                    else if (key.keyCode == "39" && num < cmd.length) { //right
+                        num++;
                     }
                     else {
+                        var cmda = cmd.split("");
                         num++;
-                        cmd += js2char(key.keyCode,shift);
-                        q.text += js2char(key.keyCode,shift);
+                        cmda.splice(num,0,js2char(key.keyCode,shift));
+                        cmd = cmda.join("");
+                        q.text = q.temp + cmd;
                     }
                 }
             }
@@ -99,6 +125,7 @@ function BashWindowTest(command) {
                 q.text += currentline(q.currentdirectory)+" ";
             }
         }
+        q.temp = q.text;
         q.input();
         q.processes.push(setInterval(function() {
             var test = q.text.split("\n");
@@ -111,7 +138,9 @@ function BashWindowTest(command) {
                 }
             }
             var wheel = re2.check(wheelactive);
-            if (re1.check(html.width()+html.height()) || wheel || re4.check(test)) {
+            var size = re1.check(html.width()+html.height());
+            var content = re4.check(q.text);
+            if (size || wheel || content) {
                 
                 var numspansx = (tt.width() - 2 * BashSettings.padding - (tt.width()  - 2 * BashSettings.padding) %  7) /  7;
                 var numspansy = (tt.height()- 2 * BashSettings.padding - (tt.height() - 2 * BashSettings.padding) % 15) / 15;
@@ -123,16 +152,20 @@ function BashWindowTest(command) {
                 var value = 0;
                 for (var i = test.length-1; i >= 0; i--) {
                     height += 1 + parseInt((1+test[i].length)/numspansx);
-                    if (height == numspansy || i == 0) {
+                    if (height == numspansy || (i == 0 && height <= numspansy)) {
                         value = i;
                     }
                 }
                 
                 var write = "";
                 var j = value;
+                var height2 = 0;
+                for (var i = j+relativej; i >= 0; i--) {
+                    height2 += 1 + parseInt((1+test[i].length)/numspansx);
+                }
                 var newcontent = re3.check(j);
                 if (wheel && !newcontent) {
-                    if ((relativej+j > 0 || direction == -scrollmod) && (relativej+j < test.length-1 || direction == scrollmod)) {
+                    if ((relativej+j > 0 && direction == scrollmod) || (height2 + numspansy < height && direction == -scrollmod)) {
                         relativej -= direction;
                     }
                     j += relativej;
@@ -170,7 +203,7 @@ function BashWindowTest(command) {
                 }
                 tt.html(write);
             }
-        },25));
+        },50));
 
     }
 }

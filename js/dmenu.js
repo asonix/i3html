@@ -13,6 +13,10 @@ function dmenu() {
         }
         inc++;
     },25);
+    var prevwindow = site.focus;
+    if (prevwindow != "none" && prevwindow != "") {
+        prevwindow.unfocus();
+    }
     var workingdir = search(preparePath("/usr/bin"),"","folder");
     var q;
     var r;
@@ -63,11 +67,17 @@ function dmenu() {
                 var parsing = document.getElementById("dmenu").value.split(" ");
                 runCommand(parsing,"","");
             }
+            if (prevwindow != "none" && prevwindow != "") {
+                prevwindow.focus();
+            }
             clearInterval(m);
             $(".dmenu").remove();
         }
         if (e.keyCode == "27") {
             e.preventDefault();
+            if (prevwindow != "none" && prevwindow != "") {
+                prevwindow.focus();
+            }
             $(".dmenu").remove();
             clearInterval(m);
         }
