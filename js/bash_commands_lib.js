@@ -267,7 +267,9 @@ function help(cur_win) {
     handleErrors("rmdir [path]: deletes a folder",cur_win);
     handleErrors("settings: open the settings dialogue",cur_win);
     handleErrors("term: open the terminal",cur_win);
+    handleErrors("termtest: INCOMPLETE open a more realistic terminal",cur_win);
     handleErrors("touch [path]: create a file at [path]",cur_win);
+    handleErrors("videos: open the video player",cur_win);
     handleErrors("",cur_win);
     return(0);
 }

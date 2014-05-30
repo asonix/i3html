@@ -4,12 +4,15 @@
     <head>
         <title>i3wm</title>
         
+        <meta charset="utf-8" />
+        
         <!--Borrowed Code-->
         <script src="js/jquery-2.0.3.js"        type="text/javascript"></script>
         <script src="js/suppressBackspace.js"   type="text/javascript"></script>
         <script src="js/jquery.mousewheel.js"   type="text/javascript"></script>
         
         <!--Self-written Code-->
+        <script src="js/videos.js"              type="text/javascript"></script>
         <script src="js/images.js"              type="text/javascript"></script>
         <script src="js/chat.js"                type="text/javascript"></script>
         <script src="js/contact.js"             type="text/javascript"></script>

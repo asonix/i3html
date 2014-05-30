@@ -33,6 +33,7 @@
     background-color: #2d2d2d;
     text-align: center;
 }
+.fullimage video,
 .fullimage img {
     max-width: 100%;
     max-height: 100%;

@@ -186,6 +186,9 @@ function Window(application) {
                 }
                 resizeAll(currentwindow.workspace);
                 repositionAll(site.focusws,0,$(".bar").height(),currentwindow.workspace);
+                if (site.focus == currentwindow) {
+                    site.focus = "none";
+                }
                 clearInterval(inter);
             }
         },25);

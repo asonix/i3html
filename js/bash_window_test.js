@@ -30,6 +30,7 @@ function BashWindowTest(command) {
         }
     }
     this.kill = function() {
+        q.unfocus();
         for (var i = 0; i < q.processes.length; i++) {
             clearInterval(q.processes[i]);
         }

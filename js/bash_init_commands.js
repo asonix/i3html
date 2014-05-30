@@ -98,4 +98,10 @@ new Command("termtest", function(args,cur_win_dir,cur_win) {
     }));
     return(resizeAll(site.focusws));
 });
+new Command("videos", function(args,cur_win_dir,cur_win) {
+    site.focusws.windows.push(new Window(function(){
+        return(new VideoBrowser());
+    }));
+    return(resizeAll(site.focusws));
+});
 
