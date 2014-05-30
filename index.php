@@ -57,11 +57,12 @@
                 <span class="time"></span>
             </span>
         </div>
-        <div class="page"></div>
+        <div class="page" style="position: absolute; height: 100%; width: 100%;">
+            <div style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; height: 15px; font-size: 15px; width: 300px; text-align: center; margin: auto;">
+                <a href="https://github.com/asonix" target="_blank" style="color: #e5e5e5;">Copyright &copy; Riley Trautman 2014</a>
+            </div>
+        </div>
         <div id="github">
-            <span class="github" style="text-align: center">
-                <a href="http://www.github.com/asonix/i3html">Asonix @ GitHub</a>
-            </span>
             <span class="github2">First Use</span>
             <span>&nbsp;</span>
             <form>

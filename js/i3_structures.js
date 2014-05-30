@@ -225,10 +225,7 @@ function Window(application) {
     this.focus();
 
     var currentwindow = this;
-    var border = function() {
-        this.color = 0;
-        this.width = 0;
-    }
+    var border;
     var size = function() {
         this.width = 0;
         this.height = 0;
@@ -247,8 +244,7 @@ function Window(application) {
                 if (currentwindow.fullscreen == false) {
                     currentwindow.fullscreen = true;
                     zindex = currentwindow.appholder.css("z-index");
-                    border.color = currentwindow.appholder.css("border-top-color");
-                    border.width = currentwindow.appholder.css("border");
+                    border = currentwindow.appholder.css("border");
                     size.width = currentwindow.appholder.css("width");
                     size.height = currentwindow.appholder.css("height");
                     margins.left = currentwindow.appholder.css("margin-left");
@@ -257,7 +253,7 @@ function Window(application) {
                 }
                 else {
                     currentwindow.fullscreen = false;
-                    currentwindow.appholder.css("border",border.width).css("border-color",border.color).css("position","relative").css("top","0px").css("left","0px").css("width",size.width).css("height",size.height).css("margin-top",margins.top).css("margin-left",margins.left).css("z-index",zindex);
+                    currentwindow.appholder.css("border",border).css("position","relative").css("top","0px").css("left","0px").css("width",size.width).css("height",size.height).css("margin-top",margins.top).css("margin-left",margins.left).css("z-index",zindex);
                 }
             }
         }

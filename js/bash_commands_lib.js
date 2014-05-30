@@ -233,6 +233,7 @@ function copy(args,cur_win_dir,cur_win) {
 }
 function help(cur_win) {
     handleErrors("This is the help dialogue.",cur_win);
+    handleErrors("Site last updated 30/05/14",cur_win);
     handleErrors("",cur_win);
     handleErrors("i3html is currently in heavy development. Luckily, it is a website and not a downloadable program, so don't worry about it crashing your computer or anything.",cur_win);
     handleErrors("",cur_win);
