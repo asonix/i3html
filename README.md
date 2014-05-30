@@ -13,18 +13,12 @@ WM:
  - Replace current window ResizeAll function (possibly mimic style of RepositionAll)
  - Remove RepositionAll's dependency on $WINDOW.next
   - Check parent size values from within child iteration unless $WINDOW.parent.type == workspace
- - Add support for multiple workspaces
-  - Attempt to change on key combination, fix what breaks
   
 TERM:
  - Add support for more commands
  
 APPLICATIONS:
- - Photo-viewer
-  - Larger preview on mouseover
  - ?Music-player?
-  - Learn HTML5
- - ?Video-player?
   - Learn HTML5
  - ?Web-browser?
   - iframes
@@ -34,6 +28,7 @@ KEYBOARD COMMANDS:
  - alt+q - remove new window
  - alt+h - next window will open to the right of the focused window
  - alt+v - next window will open below the focused window
+ - alt+f - make the current window fullscreen
  - alt+d - open dmenu
  - alt+1 through alt+0 - switch workspaces
 
@@ -41,10 +36,13 @@ BASH COMMANDS:
  - cat [path to file] - display contents of file
  - cd, cd.., cd .., cd ~, cd /, cd [path of folder] - change directory
  - clear - clear console
+ - contact - open the contact page
  - cp [path] [path2] - copy file from path to path2
  - dmenu\_run - open dmenu
  - edit [path to file] - edite file
+ - exit - close the current terminal window
  - help - displays help dialogue
+ - images: open the image browser
  - ls - list files and folders
  - mkdir [path] - makes a folder
  - mv [path] [path2] - move file from path to path2
@@ -52,4 +50,6 @@ BASH COMMANDS:
  - rmdir [path to folder] - removes a folder
  - settings - open settings panel
  - term - open new terminal
+ - termtest - INCOMPLETE open a more realistic terminal
  - touch [path] - creates a file
+ - videos - open the video player
