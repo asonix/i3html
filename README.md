@@ -9,19 +9,19 @@ This is a project for a web tech class I am currently in, and I am trying to wri
 
 TODO:
 
-WM:
- - Replace current window ResizeAll function (possibly mimic style of RepositionAll)
- - Remove RepositionAll's dependency on $WINDOW.next
-  - Check parent size values from within child iteration unless $WINDOW.parent.type == workspace
-  
-TERM:
- - Add support for more commands
- 
-APPLICATIONS:
- - ?Music-player?
-  - Learn HTML5
- - ?Web-browser?
-  - iframes
+ - WM:
+  - Replace current window ResizeAll function (possibly mimic style of RepositionAll)
+  - Remove RepositionAll's dependency on $WINDOW.next
+   - Check parent size values from within child iteration unless $WINDOW.parent.type == workspace
+
+ - TERM:
+  - Add support for more commands
+
+ - APPLICATIONS:
+  - ?Music-player?
+   - Learn HTML5
+  - ?Web-browser?
+   - iframes
 
 KEYBOARD COMMANDS:
  - alt+enter - create new window
