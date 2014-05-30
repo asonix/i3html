@@ -1,7 +1,7 @@
 i3html
 ======
 
-![image](img/i3.png)
+![image](img/i3_2.png)
 
 A web implementation of the i3wm with simulated bash+programs written from scratch.
 
